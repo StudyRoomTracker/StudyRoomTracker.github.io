@@ -1,0 +1,55 @@
+* {
+ margin: 0;
+ padding: 0;
+ box-sizing: border-box;
+}
+body {
+ font-family: cursive;
+}
+a {
+ text-decoration: none;
+}
+li {
+ list-style: none;
+}
+
+.navbar {
+ display: flex;
+ align-items: center;
+ justify-content: space-between;
+ padding: 5px;
+ background-color: #be2828;
+}
+
+.navbar a{
+  color: white;
+}
+
+.navbar a.active-link {
+  background-color: darkred;
+  color: yellow;
+  border-radius: 10px;
+  transition: 0.3s ease;
+}
+
+
+.menu {
+ display: flex;
+ gap: 1em;
+ font-size: 32px;
+ color: white;
+}
+.menu li:hover {
+ background-color: red;
+ border-radius: 5px;
+ transition: 0.3s ease;
+}
+.menu li {
+ padding: 30px 14px;
+ float: right;
+}
+
+.logo {
+ font-size: 32px;
+ padding:  20px;
+}

@@ -24,63 +24,7 @@
     -->
     <script defer src="/__/firebase/init.js?useEmulator=true"></script>
 
-    <style type="text/css">
-      * {
-       margin: 0;
-       padding: 0;
-       box-sizing: border-box;
-      }
-      body {
-       font-family: cursive;
-      }
-      a {
-       text-decoration: none;
-      }
-      li {
-       list-style: none;
-      }
-      
-      .navbar {
-       display: flex;
-       align-items: center;
-       justify-content: space-between;
-       padding: 5px;
-       background-color: #be2828;
-      }
-
-      .navbar a{
-        color: white;
-      }
-
-      .navbar a.active {
-        background-color: #04AA6D;
-        color: white;
-      }
-
-
-      .menu {
-       display: flex;
-       gap: 1em;
-       font-size: 32px;
-       color: white;
-      }
-      .menu li:hover {
-       background-color: red;
-       border-radius: 5px;
-       transition: 0.3s ease;
-      }
-      .menu li {
-       padding: 30px 14px;
-       float: right;
-      }
-
-      .logo {
-       font-size: 32px;
-       padding:  20px;
-      }
-
-
-    </style>
+    <link rel="stylesheet" href="../style.css">
 
   </head>
   <body>
@@ -89,17 +33,17 @@
 
     <nav class = "navbar">
       <div class = "menu">
-        <a href="/"><img src = "logo-modified.png" width = "100" height = 100> </a>
-        <div class = "logo"> <a href="/">Study Room Tracker</a> </div>
+        <a href="/"><img src = "../logo-modified.png" width = "100" height = 100> </a>
+        <div class = "logo"> <a href="../">Study Room Tracker</a> </div>
 
-          <li><a href="floor1.html">Floor 1</a></li>
-          <li><a href="floor2.html">Floor 2</a></li>
-          <li><a href="floor3.html">Floor 3</a></li>
-          <li><a href="floor4.html">Floor 4</a></li>
+          <li><a href="../floor1">Floor 1</a></li>
+          <li><a href="../floor2">Floor 2</a></li>
+          <li><a href="." class = "active-link">Floor 3</a></li>
+          <li><a href="../floor4">Floor 4</a></li>
       </div>
     </nav>
     
-    <img src = "wireless_folsom4.png" width = 634 height = 424>
+    <img src = "wireless_folsom3.png" width = 634 height = 424>
 
   </body>
 </html>
