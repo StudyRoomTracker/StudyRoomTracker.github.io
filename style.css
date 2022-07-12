@@ -32,7 +32,6 @@ li {
   transition: 0.3s ease;
 }
 
-
 .menu {
  display: flex;
  gap: 1em;
@@ -52,4 +51,20 @@ li {
 .logo {
  font-size: 32px;
  padding:  20px;
+}
+
+.centerit{
+  text-align: left; 
+  display:flex; 
+  flex-direction: column; 
+  align-items: center;
+}
+
+.paragraph {
+  text-align: center;
+}
+
+.paragraphmain{
+  text-align: center;
+  font-size: 22px
 }
