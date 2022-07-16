@@ -19,6 +19,10 @@ li {
  justify-content: space-between;
  padding: 5px;
  background-color: #be2828;
+ position: relative;
+ z-index: 1;
+ top: 0;
+ width: 100%;
 }
 
 .navbar a{
@@ -53,6 +57,12 @@ li {
  padding:  20px;
 }
 
+.logoSpace {
+	width: 100px;
+	height: 100px;
+	
+}
+
 .centerit{
   text-align: left; 
   display:flex; 
@@ -64,6 +74,7 @@ li {
   text-align: center;
   font-size: 20px;
   font-family: Arial, Helvetica, serif;
+  
 }
 
 .paragraphmain{
@@ -77,3 +88,78 @@ br {
    content: "";
    margin: 50px 0;
 }
+
+.sidenav {
+  height: 83.5vh;
+  width: 150px;
+  position: relative;
+  z-index: 0;
+  background-color: #929292;
+  overflow-x: hidden;
+  float: left;
+}
+
+.sidenav a {
+  padding: 10px 30px 10px 25px;
+  text-decoration: none;
+  font-size: 30px;
+  display: block;
+  color: white;
+}
+
+.sidenav a:hover {
+ background-color: #be2828;
+ border-radius: 50px;
+ transition: 0.3s ease;
+}
+
+.center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+  height: 50%;
+}
+
+.sidenav a.active {
+	background-color: #be2828;
+	color: yellow;
+	border-radius: 50px;
+}
+
+.container {
+	position: sticky;
+	text-align: center;
+	color: black;
+	overflow: hidden;
+	z-index: -1;
+}
+
+.cTitle {
+	position: absolute;
+	top: 20%; left: 50%;
+	transform: translate(-50%);
+	border-radius: 10px;
+	background-color: rgba(255,255,255,0.45);
+}
+
+.cMiddle {
+	position: absolute;
+	top: 50%; right: 50%;
+	transform: translate(50%);
+	font-size: 22px;
+	font-family: Arial, Helvetica, serif;
+	border-radius: 10px;
+	background-color: rgba(255,255,255,0.45);
+}
+
+.cBottom {
+	position: absolute;
+	top: 80%; left: 50%;
+	transform: translate(-50%);
+	font-size: 20px;
+	font-family: Arial, Helvetica, serif;
+	border-radius: 10px;
+	background-color: rgba(255,255,255,0.45);
+}
+
