@@ -4,7 +4,7 @@
  box-sizing: border-box;
 }
 body {
- font-family: cursive;
+ font-family: Arial, Helvetica, serif;
 }
 a {
  text-decoration: none;
@@ -62,9 +62,18 @@ li {
 
 .paragraph {
   text-align: center;
+  font-size: 20px;
+  font-family: Arial, Helvetica, serif;
 }
 
 .paragraphmain{
   text-align: center;
-  font-size: 22px
+  font-size: 22px;
+  font-family: Arial, Helvetica, serif;
+}
+
+br {
+   display: block;
+   content: "";
+   margin: 50px 0;
 }
