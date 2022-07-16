@@ -116,8 +116,16 @@ async function getRoomList(db, floorNumber){
 
 floor1 = await getRoomList(db, 1);
 
-//console.log(JSON.stringify(floor1));
-for (var i = 0; i < floor1.length; ++i){
-  console.log(floor1[i].data);
-}
-floor1[0].unoccupy();
+// //console.log(JSON.stringify(floor1));
+// for (var i = 0; i < floor1.length; ++i){
+//   console.log(floor1[i].data);
+// }
+// floor1[0].unoccupy();
+
+var canvas = document.getElementById("mycanvas");
+const ctx = canvas.getContext('2d')
+var myImage = new Image(634, 424);
+myImage.src = "wireless_folsom1.png" ;
+ctx.drawImage(myImage,0,0);
+
+
