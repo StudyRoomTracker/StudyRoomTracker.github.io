@@ -123,7 +123,9 @@ floor1 = await getRoomList(db, 1);
 // floor1[0].unoccupy();
 
 var canvas = document.getElementById("mycanvas");
-const ctx = canvas.getContext('2d')
+const ctx = canvas.getContext('2d');
+
+var infoDisplay = document.getElementById("info");
 
 function reload(){
   ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -168,6 +170,7 @@ canvas.onmousedown = function (e) {
     e.preventDefault();
     reload();
     selectedRoom = null;
+    infoDisplay.innerHTML = "Room Number: <br> Status: ";
 };
 
 canvas.onmouseup = function (e) {
@@ -195,6 +198,7 @@ canvas.onmouseup = function (e) {
 
     if (!changed){
       selectedRoom = null;
+      infoDisplay.innerHTML = "Room Number: <br> Status: ";
       reload();
     } else {
       ctx.beginPath();
@@ -212,9 +216,21 @@ canvas.onmouseup = function (e) {
 
       ctx.beginPath();
       ctx.lineWidth = "3";
-      ctx.strokeStyle = "rgba(0,0,0,1)";
-      ctx.arc((selectedRoom.data.topLeft[0] + selectedRoom.data.bottomRight[0]) / 2, (selectedRoom.data.topLeft[1] + selectedRoom.data.bottomRight[1]) / 2, 6, 0, 2 * Math.PI);
+      ctx.strokeStyle = "rgba(0,0,255,1)";
+      ctx.arc((selectedRoom.data.topLeft[0] + selectedRoom.data.bottomRight[0]) / 2, (selectedRoom.data.topLeft[1] + selectedRoom.data.bottomRight[1]) / 2, 26, 0, 2 * Math.PI);
       ctx.stroke();
+
+      var status = "Occupied";
+      if (!selectedRoom.occupied){
+        status = "Unoccupied";
+      }
+
+      var canUse = "";
+      if (selectedRoom.available){
+        canUse = "Room is closed";
+      }
+
+      infoDisplay.innerHTML = "Room Number: " + selectedRoom.ID + "<br>" + "Status: " + status + "<br>" + canUse;
     }
     //console.log("selected room:", selectedRoom);
 };
