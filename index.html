@@ -30,50 +30,13 @@
   <body>
 
 
-    <script type = "module">
-      import { initializeApp } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-app.js";
-      import { collection, doc, setDoc, onSnapshot, getFirestore } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-firestore.js"; 
-      // Follow this pattern to import other Firebase services
-      // import { } from 'firebase/<service>';
-
-      // TODO: Replace the following with your app's Firebase project configuration
-      const firebaseConfig = {
-        apiKey: "AIzaSyBbW8o4MQxx1UEa8-datcBWlEqlrBb9-gA",
-        authDomain: "studyroomtracker.firebaseapp.com",
-        databaseURL: "https://studyroomtracker-default-rtdb.firebaseio.com",
-        projectId: "studyroomtracker",
-        storageBucket: "studyroomtracker.appspot.com",
-        messagingSenderId: "380986676354",
-        appId: "1:380986676354:web:dd2bf38160c807d086109b",
-        measurementId: "G-ST790R47GE"
-      };
-
-      const app = initializeApp(firebaseConfig);
-      const db = getFirestore(app);
-
-      const unsub = onSnapshot(doc(db, "cities", "SF"), (doc) => {
-          console.log("Current data: ", doc.data());
-      });
-
-      await setDoc(doc(db, "cities", "LA"), {
-        name: "Los Angeles",
-        state: "CA",
-        country: "USA"
-      });
-
-      // Get a list of cities from your database
-      async function getCities(db) {
-        const citiesCol = collection(db, 'cities');
-        const citySnapshot = await getDocs(citiesCol);
-        const cityList = citySnapshot.docs.map(doc => doc.data());
-        return cityList;
-      }
-    </script>
+    <script type = "module" src = "app.js"></script>
 
     <nav class = "navbar">
       <div class = "menu">
         <a href="/"><img src = "logo-modified.png" width = "100" height = 100> </a>
-        <div class = "logo"> <a href=".">Study Room Tracker</a> </div>
+          
+          <li><a href=".">Study Room Tracker</a> </li>
 
           <li><a href="floor1">Floor 1</a></li>
           <li><a href="floor2">Floor 2</a></li>
