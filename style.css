@@ -97,10 +97,12 @@ br {
 
 .center {
   display: block;
-  margin-left: auto;
+  margin-left: 15vw;
   margin-right: auto;
   width: 50%;
   height: 50%;
+  margin-top: 7vh;
+  
 }
 
 .sidenav a.active {
