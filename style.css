@@ -60,7 +60,7 @@ li {
 .logoSpace {
 	width: 100px;
 	height: 100px;
-	
+	left: 10px;
 }
 
 .centerit{
@@ -133,6 +133,7 @@ br {
 	color: black;
 	overflow: hidden;
 	z-index: -1;
+	
 }
 
 .cTitle {
