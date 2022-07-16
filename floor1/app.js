@@ -124,17 +124,102 @@ floor1 = await getRoomList(db, 1);
 
 var canvas = document.getElementById("mycanvas");
 const ctx = canvas.getContext('2d')
-var myImage = new Image(634, 424);
-myImage.src = "wireless_folsom1.png" ;
-ctx.drawImage(myImage,0,0);
 
-for (var i = 0; i < floor1.length; i++){
-  ctx.beginPath();
-  ctx.lineWidth = "2";
-  ctx.strokeStyle = "rgba(0,255,0,.5)";
-  ctx.rect(floor1[i].data.topLeft[0], floor1[i].data.topLeft[1], floor1[i].data.bottomRight[0] - floor1[i].data.topLeft[0], floor1[i].data.bottomRight[1] - floor1[i].data.topLeft[1]);
-  ctx.stroke();
+function reload(){
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  var myImage = new Image(634, 424);
+  myImage.src = "wireless_folsom1.png" ;
+  ctx.drawImage(myImage,0,0);
+
+  for (var i = 0; i < floor1.length; i++){
+    ctx.beginPath();
+    ctx.lineWidth = "4";
+    if (floor1[i].data.occupied){
+      ctx.strokeStyle = "rgba(255,0,0,.5)";
+    } else {
+      ctx.strokeStyle = "rgba(0,255,0,.5)";
+    }
+    ctx.rect(floor1[i].data.topLeft[0], floor1[i].data.topLeft[1], floor1[i].data.bottomRight[0] - floor1[i].data.topLeft[0], floor1[i].data.bottomRight[1] - floor1[i].data.topLeft[1]);
+    ctx.stroke();
+  }
 }
+
+var selectedRoom;
+
+var mouse = {
+        down: false,
+        button: 1,
+        x: 0,
+        y: 0,
+        px: 0,
+        py: 0
+    };
+
+
+canvas.onmousedown = function (e) {
+    mouse.button = e.which;
+    mouse.px = mouse.x;
+    mouse.py = mouse.y;
+    var rect = canvas.getBoundingClientRect();
+    mouse.x = e.clientX - rect.left,
+    mouse.y = e.clientY - rect.top,
+    mouse.down = true;
+    e.preventDefault();
+    reload();
+    selectedRoom = null;
+};
+
+canvas.onmouseup = function (e) {
+    mouse.down = false;
+    e.preventDefault();
+
+    var rect = canvas.getBoundingClientRect();
+
+    var changed = false;
+
+    for (var i = 0; i < floor1.length; i++){
+      console.log(mouse.x , mouse.y);
+      var x = floor1[i].data.topLeft[0] / 634 * canvas.scrollWidth;
+      var y = floor1[i].data.topLeft[1] / 424 * canvas.scrollHeight;
+
+      var dx = floor1[i].data.bottomRight[0] / 634 * canvas.scrollWidth;
+      var dy = floor1[i].data.bottomRight[1] / 424 * canvas.scrollHeight;
+
+      console.log(x,y, dx, dy);
+      if (mouse.x > x && mouse.y > y && mouse.x < dx && mouse.y < dy){
+        selectedRoom = floor1[i];
+        changed = true;
+      }
+    }
+
+    if (!changed){
+      selectedRoom = null;
+      reload();
+    } else {
+      ctx.beginPath();
+      ctx.lineWidth = "2";
+      ctx.strokeStyle = "rgba(0,0,0,1)";
+
+      if (selectedRoom.data.occupied){
+        ctx.fillStyle = "rgba(255,0,0,.25)";
+      } else {
+        ctx.fillStyle = "rgba(0,255,0,.25)";
+      }
+
+      ctx.fillRect(selectedRoom.data.topLeft[0], selectedRoom.data.topLeft[1], selectedRoom.data.bottomRight[0] - selectedRoom.data.topLeft[0], selectedRoom.data.bottomRight[1] - selectedRoom.data.topLeft[1]);
+      ctx.stroke();
+
+      ctx.beginPath();
+      ctx.lineWidth = "3";
+      ctx.strokeStyle = "rgba(0,0,0,1)";
+      ctx.arc((selectedRoom.data.topLeft[0] + selectedRoom.data.bottomRight[0]) / 2, (selectedRoom.data.topLeft[1] + selectedRoom.data.bottomRight[1]) / 2, 6, 0, 2 * Math.PI);
+      ctx.stroke();
+    }
+    //console.log("selected room:", selectedRoom);
+};
+
+reload();
 
 
 

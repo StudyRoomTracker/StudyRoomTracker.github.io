@@ -102,7 +102,7 @@ br {
   width: 50%;
   height: 50%;
   margin-top: 7vh;
-  
+  border:1px solid red;
 }
 
 .sidenav a.active {
