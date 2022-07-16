@@ -68,7 +68,8 @@ li {
 
 .paragraphmain{
   text-align: center;
-  font-size: 22px
+  font-size: 22px;
+  font-family: Arial, Helvetica, serif;
 }
 
 br {
