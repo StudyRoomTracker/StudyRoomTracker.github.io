@@ -128,4 +128,14 @@ var myImage = new Image(634, 424);
 myImage.src = "wireless_folsom1.png" ;
 ctx.drawImage(myImage,0,0);
 
+for (var i = 0; i < floor1.length; i++){
+  ctx.beginPath();
+  ctx.lineWidth = "2";
+  ctx.strokeStyle = "rgba(0,255,0,.5)";
+  ctx.rect(floor1[i].data.topLeft[0], floor1[i].data.topLeft[1], floor1[i].data.bottomRight[0] - floor1[i].data.topLeft[0], floor1[i].data.bottomRight[1] - floor1[i].data.topLeft[1]);
+  ctx.stroke();
+}
+
+
+
 

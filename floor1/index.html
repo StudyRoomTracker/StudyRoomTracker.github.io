@@ -29,7 +29,7 @@
   </head>
   <body>
 
-    <!-- <script type="text/javascript" src = "app.js"></script> -->
+    <script type="module" src = "app.js"></script>
 
     <nav class = "navbar">
       <div class = "menu">
@@ -48,7 +48,13 @@
 	</div>
     
 	<!--<br>-->
-    <img src = "wireless_folsom1.png" class="center">
+  <div style="display:none;">
+    <img id="source"
+         src="wireless_folsom1.png"
+         width=634 height=424>
+  </div>
+    <canvas id = "mycanvas" width=634 height=424 class="center"> </canvas>
+
 
   </body>
 </html>
