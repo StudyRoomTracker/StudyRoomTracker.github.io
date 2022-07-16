@@ -127,6 +127,8 @@ const ctx = canvas.getContext('2d');
 
 var infoDisplay = document.getElementById("info");
 
+var button = document.getElementById("button");
+
 function reload(){
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
@@ -170,7 +172,8 @@ canvas.onmousedown = function (e) {
     e.preventDefault();
     reload();
     selectedRoom = null;
-    infoDisplay.innerHTML = "Room Number: <br> Status: ";
+    infoDisplay.innerHTML = "Room Number: <br> Status: <br>";
+    button.style.visibility = "hidden";
 };
 
 canvas.onmouseup = function (e) {
@@ -198,7 +201,7 @@ canvas.onmouseup = function (e) {
 
     if (!changed){
       selectedRoom = null;
-      infoDisplay.innerHTML = "Room Number: <br> Status: ";
+      infoDisplay.innerHTML = "Room Number: <br> Status: <br>";
       reload();
     } else {
       ctx.beginPath();
@@ -231,6 +234,17 @@ canvas.onmouseup = function (e) {
       }
 
       infoDisplay.innerHTML = "Room Number: " + selectedRoom.ID + "<br>" + "Status: " + status + "<br>" + canUse;
+
+      
+      if (selectedRoom.data.occupied){
+        button.style.background = "rgb(255,0,0)";
+        button.innerHTML = "Unoccupy";
+      } else {
+        button.style.background = "rgb(0,255,0)";
+        button.innerHTML = "Occupy";
+      }
+
+      button.style.visibility = "visible";
     }
     //console.log("selected room:", selectedRoom);
 };

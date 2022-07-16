@@ -99,7 +99,7 @@ br {
   display: block;
   margin-left: 15vw;
   margin-right: auto;
-  width: 60%;
+  width: 80%;
   height: 50%;
   margin-top: 7vh;
   display: flex;
@@ -151,5 +151,13 @@ br {
 .center p {
   flex-direction: row;
   font-size: 20px;
+}
+
+.center button {
+  flex-direction: row;
+  font-size: 20px;
+  height: 5vh;
+  width:  10vw;
+  border-radius: 10px;
 }
 
