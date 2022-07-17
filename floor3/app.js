@@ -134,7 +134,7 @@ function reload(){
   for (var i = 0; i < floor1.length; i++){
     ctx.beginPath();
     ctx.lineWidth = "4";
-    if (floor1[i].data.occupied){
+    if (floor1[i].data.occupied || !floor1[i].data.available){
       ctx.strokeStyle = "rgba(255,0,0,.5)";
     } else {
       ctx.strokeStyle = "rgba(0,255,0,.5)";
@@ -194,15 +194,14 @@ function drawSelectedRoom(){
   ctx.stroke();
 
   var status = "Occupied";
-  if (!selectedRoom.occupied){
+  if (!selectedRoom.data.occupied){
     status = "Unoccupied";
   }
 
-  var canUse = "";
-  if (selectedRoom.available){
+  var canUse = " ";
+  if (!selectedRoom.data.available){
     canUse = "Room is closed";
-  }
-
+  } 
   infoDisplay.innerHTML = "Room Number: " + selectedRoom.ID + "<br>" + "Status: " + status + "<br>" + canUse;
 
   
@@ -214,7 +213,9 @@ function drawSelectedRoom(){
     button.innerHTML = "Occupy";
   }
 
-  button.style.visibility = "visible";
+  if (selectedRoom.data.available){
+    button.style.visibility = "visible";
+  }
 }
 
 canvas.onmouseup = function (e) {

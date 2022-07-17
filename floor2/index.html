@@ -47,7 +47,22 @@
 		</div>
 	</div>
     
-    <img src = "wireless_folsom2.png" class="center">
+  <div style="display:none;">
+    <img id="source"
+         src="wireless_folsom2.png"
+         width=684 height=393>
+  </div>
+    <div class="center">
+      <canvas id = "mycanvas" width=684 height=393 > </canvas>
+      <div>
+        <p id = "info"> Room Number: <br> Status: <br></p>
+        <button id="button" style="visibility: hidden;"></button>
+      </div>
+    </div>
+
+    <script type="module" src = "app.js"></script>
+
+  </body>
 
   </body>
 </html>
