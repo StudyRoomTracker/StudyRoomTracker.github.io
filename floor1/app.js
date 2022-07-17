@@ -131,11 +131,11 @@ var button = document.getElementById("button");
 
 var selectedRoom = null;
 
+var myImage = new Image(634, 424);
+myImage.src = "wireless_folsom1.png" ;
+
 function reload(){
   ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-  var myImage = new Image(634, 424);
-  myImage.src = "wireless_folsom1.png" ;
   ctx.drawImage(myImage,0,0);
 
   for (var i = 0; i < floor1.length; i++){

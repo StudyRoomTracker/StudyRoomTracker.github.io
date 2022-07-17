@@ -114,7 +114,7 @@ async function getRoomList(db, floorNumber){
   return floor;
 }
 
-floor1 = await getRoomList(db, 3);
+floor1 = await getRoomList(db, 4);
 
 // //console.log(JSON.stringify(floor1));
 // for (var i = 0; i < floor1.length; ++i){
@@ -131,10 +131,9 @@ var button = document.getElementById("button");
 
 var selectedRoom = null;
 
+var myImage = new Image(666, 400);
+myImage.src = "wireless_folsom4.png" ;
 
-
-var myImage = new Image(692, 414);
-myImage.src = "wireless_folsom3.png" ;
 ctx.drawImage(myImage,0,0);
 
 reload();
