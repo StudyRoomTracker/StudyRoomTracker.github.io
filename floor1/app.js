@@ -129,6 +129,8 @@ var infoDisplay = document.getElementById("info");
 
 var button = document.getElementById("button");
 
+var selectedRoom = null;
+
 function reload(){
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
@@ -147,9 +149,11 @@ function reload(){
     ctx.rect(floor1[i].data.topLeft[0], floor1[i].data.topLeft[1], floor1[i].data.bottomRight[0] - floor1[i].data.topLeft[0], floor1[i].data.bottomRight[1] - floor1[i].data.topLeft[1]);
     ctx.stroke();
   }
-}
 
-var selectedRoom;
+  if (selectedRoom != null){
+    drawSelectedRoom();
+  }
+}
 
 var mouse = {
         down: false,
@@ -176,6 +180,50 @@ canvas.onmousedown = function (e) {
     button.style.visibility = "hidden";
 };
 
+function drawSelectedRoom(){
+  ctx.beginPath();
+  ctx.lineWidth = "2";
+  ctx.strokeStyle = "rgba(0,0,0,1)";
+
+  if (selectedRoom.data.occupied){
+    ctx.fillStyle = "rgba(255,0,0,.25)";
+  } else {
+    ctx.fillStyle = "rgba(0,255,0,.25)";
+  }
+
+  ctx.fillRect(selectedRoom.data.topLeft[0], selectedRoom.data.topLeft[1], selectedRoom.data.bottomRight[0] - selectedRoom.data.topLeft[0], selectedRoom.data.bottomRight[1] - selectedRoom.data.topLeft[1]);
+  ctx.stroke();
+
+  ctx.beginPath();
+  ctx.lineWidth = "3";
+  ctx.strokeStyle = "rgba(0,0,255,1)";
+  ctx.arc((selectedRoom.data.topLeft[0] + selectedRoom.data.bottomRight[0]) / 2, (selectedRoom.data.topLeft[1] + selectedRoom.data.bottomRight[1]) / 2, 26, 0, 2 * Math.PI);
+  ctx.stroke();
+
+  var status = "Occupied";
+  if (!selectedRoom.occupied){
+    status = "Unoccupied";
+  }
+
+  var canUse = "";
+  if (selectedRoom.available){
+    canUse = "Room is closed";
+  }
+
+  infoDisplay.innerHTML = "Room Number: " + selectedRoom.ID + "<br>" + "Status: " + status + "<br>" + canUse;
+
+  
+  if (selectedRoom.data.occupied){
+    button.style.background = "rgb(255,0,0)";
+    button.innerHTML = "Unoccupy";
+  } else {
+    button.style.background = "rgb(0,255,0)";
+    button.innerHTML = "Occupy";
+  }
+
+  button.style.visibility = "visible";
+}
+
 canvas.onmouseup = function (e) {
     mouse.down = false;
     e.preventDefault();
@@ -185,14 +233,14 @@ canvas.onmouseup = function (e) {
     var changed = false;
 
     for (var i = 0; i < floor1.length; i++){
-      console.log(mouse.x , mouse.y);
+      //console.log(mouse.x , mouse.y);
       var x = floor1[i].data.topLeft[0] / 634 * canvas.scrollWidth;
       var y = floor1[i].data.topLeft[1] / 424 * canvas.scrollHeight;
 
       var dx = floor1[i].data.bottomRight[0] / 634 * canvas.scrollWidth;
       var dy = floor1[i].data.bottomRight[1] / 424 * canvas.scrollHeight;
 
-      console.log(x,y, dx, dy);
+      //console.log(x,y, dx, dy);
       if (mouse.x > x && mouse.y > y && mouse.x < dx && mouse.y < dy){
         selectedRoom = floor1[i];
         changed = true;
