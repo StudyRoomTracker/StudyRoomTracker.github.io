@@ -9,7 +9,7 @@ class Room {
     this.floor = _floor;
     this.DB = _db
     this.data;
-    const check = onSnapshot(doc(_db, _floor, _ID), (doc) => {this.data = doc.data(); console.log(doc.data());});
+    const check = onSnapshot(doc(_db, _floor, _ID), (doc) => {this.data = doc.data(); reload();});
     //console.log(this.data);
   }
 
