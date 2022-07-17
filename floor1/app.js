@@ -251,6 +251,24 @@ canvas.onmouseup = function (e) {
 
 reload();
 
+button.onclick = function () {
+  if (selectedRoom.data.occupied){
+    selectedRoom.unoccupy();
+    button.style.background = "rgb(0,255,0)";
+    button.innerHTML = "Occupy";
+  } else {
+    selectedRoom.occupy();
+    button.style.background = "rgb(255,0,0)";
+    button.innerHTML = "Unoccupy";
+  }
+  reload();
+  ctx.beginPath();
+  ctx.lineWidth = "3";
+  ctx.strokeStyle = "rgba(0,0,255,1)";
+  ctx.arc((selectedRoom.data.topLeft[0] + selectedRoom.data.bottomRight[0]) / 2, (selectedRoom.data.topLeft[1] + selectedRoom.data.bottomRight[1]) / 2, 26, 0, 2 * Math.PI);
+  ctx.stroke();
+}
+
 
 
 
