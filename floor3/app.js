@@ -88,6 +88,7 @@ async function idToRooms(floorList, db, floor){
   for (var i = 0; i < floorList.length; ++i){
     let room = new Room;
     room.contructor(db, floorList[i], floor);
+    await room.update();
     list.push(room);
   }
 

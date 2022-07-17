@@ -88,8 +88,8 @@ async function idToRooms(floorList, db, floor){
   for (var i = 0; i < floorList.length; ++i){
     let room = new Room;
     room.contructor(db, floorList[i], floor);
-    onSnapshot(doc(db, floor, floorList[i]), (doc) => {room.data = doc.data();});
-    //await room.update();
+    //onSnapshot(doc(db, floor, floorList[i]), (doc) => {room.data = doc.data();});
+    await room.update();
     //room.update();
     //console.log(room.data);
     list.push(room);
