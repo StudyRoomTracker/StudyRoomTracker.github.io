@@ -89,7 +89,7 @@ async function idToRooms(floorList, db, floor){
     let room = new Room;
     room.contructor(db, floorList[i], floor);
     //onSnapshot(doc(db, floor, floorList[i]), (doc) => {room.data = doc.data();});
-    await room.update();
+    //await room.update();
     //room.update();
     //console.log(room.data);
     list.push(room);
@@ -258,8 +258,6 @@ canvas.onmouseup = function (e) {
     }
     //console.log("selected room:", selectedRoom);
 };
-
-reload();
 
 button.onclick = function () {
   if (selectedRoom.data.occupied){

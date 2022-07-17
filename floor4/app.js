@@ -8,7 +8,7 @@ class Room {
     this.ID = _ID;
     this.floor = _floor;
     this.DB = _db
-    this.data;
+    this.data = null;
     const check = onSnapshot(doc(_db, _floor, _ID), (doc) => {this.data = doc.data(); reload();});
     //console.log(this.data);
   }
@@ -88,8 +88,7 @@ async function idToRooms(floorList, db, floor){
   for (var i = 0; i < floorList.length; ++i){
     let room = new Room;
     room.contructor(db, floorList[i], floor);
-    //onSnapshot(doc(db, floor, floorList[i]), (doc) => {room.data = doc.data();});
-    await room.update();
+    //await room.update();
     //room.update();
     //console.log(room.data);
     list.push(room);
@@ -111,6 +110,7 @@ async function getRoomList(db, floorNumber){
   }
   var floor = await getFloor(db, floorStr);
   floor = await idToRooms(floor, db, floorStr);
+
   return floor;
 }
 
@@ -135,7 +135,9 @@ ctx.drawImage(myImage,0,0);
 
 floor1 = await getRoomList(db, 4);
 
-reload();
+
+
+//reload();
 
 function reload(){
   ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -225,6 +227,8 @@ function drawSelectedRoom(){
   }
 
   button.style.visibility = "visible";
+
+  //console.log(floor1.length);
 }
 
 canvas.onmouseup = function (e) {
@@ -234,7 +238,7 @@ canvas.onmouseup = function (e) {
     var rect = canvas.getBoundingClientRect();
 
     var changed = false;
-
+    //console.log(floor1.length);
     for (var i = 0; i < floor1.length; i++){
       //console.log(mouse.x , mouse.y);
       var x = floor1[i].data.topLeft[0] / canvas.width * canvas.scrollWidth;

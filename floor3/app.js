@@ -88,7 +88,7 @@ async function idToRooms(floorList, db, floor){
   for (var i = 0; i < floorList.length; ++i){
     let room = new Room;
     room.contructor(db, floorList[i], floor);
-    await room.update();
+    //await room.update();
     list.push(room);
   }
 
@@ -126,7 +126,6 @@ ctx.drawImage(myImage,0,0);
 
 floor1 = await getRoomList(db, 3);
 
-reload();
 
 function reload(){
   ctx.clearRect(0, 0, canvas.width, canvas.height);
