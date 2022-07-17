@@ -252,47 +252,8 @@ canvas.onmouseup = function (e) {
       infoDisplay.innerHTML = "Room Number: <br> Status: <br>";
       reload();
     } else {
-      ctx.beginPath();
-      ctx.lineWidth = "2";
-      ctx.strokeStyle = "rgba(0,0,0,1)";
-
-      if (selectedRoom.data.occupied){
-        ctx.fillStyle = "rgba(255,0,0,.25)";
-      } else {
-        ctx.fillStyle = "rgba(0,255,0,.25)";
-      }
-
-      ctx.fillRect(selectedRoom.data.topLeft[0], selectedRoom.data.topLeft[1], selectedRoom.data.bottomRight[0] - selectedRoom.data.topLeft[0], selectedRoom.data.bottomRight[1] - selectedRoom.data.topLeft[1]);
-      ctx.stroke();
-
-      ctx.beginPath();
-      ctx.lineWidth = "3";
-      ctx.strokeStyle = "rgba(0,0,255,1)";
-      ctx.arc((selectedRoom.data.topLeft[0] + selectedRoom.data.bottomRight[0]) / 2, (selectedRoom.data.topLeft[1] + selectedRoom.data.bottomRight[1]) / 2, 26, 0, 2 * Math.PI);
-      ctx.stroke();
-
-      var status = "Occupied";
-      if (!selectedRoom.occupied){
-        status = "Unoccupied";
-      }
-
-      var canUse = "";
-      if (selectedRoom.available){
-        canUse = "Room is closed";
-      }
-
-      infoDisplay.innerHTML = "Room Number: " + selectedRoom.ID + "<br>" + "Status: " + status + "<br>" + canUse;
-
-      
-      if (selectedRoom.data.occupied){
-        button.style.background = "rgb(255,0,0)";
-        button.innerHTML = "Unoccupy";
-      } else {
-        button.style.background = "rgb(0,255,0)";
-        button.innerHTML = "Occupy";
-      }
-
-      button.style.visibility = "visible";
+      reload();
+      drawSelectedRoom();
     }
     //console.log("selected room:", selectedRoom);
 };
@@ -310,11 +271,6 @@ button.onclick = function () {
     button.innerHTML = "Unoccupy";
   }
   reload();
-  ctx.beginPath();
-  ctx.lineWidth = "3";
-  ctx.strokeStyle = "rgba(0,0,255,1)";
-  ctx.arc((selectedRoom.data.topLeft[0] + selectedRoom.data.bottomRight[0]) / 2, (selectedRoom.data.topLeft[1] + selectedRoom.data.bottomRight[1]) / 2, 26, 0, 2 * Math.PI);
-  ctx.stroke();
 }
 
 
