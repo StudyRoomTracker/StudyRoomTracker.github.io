@@ -148,3 +148,17 @@ br {
 	background-color: rgba(255,255,255,0.45);
 }
 
+.centered {
+	position: absolute;
+	left: 55vw;
+	top: 58%;
+	transform: translate(-50%, -50%);
+	/*border: 5px solid #FFFF00;*/
+	text-align: center;
+	width: 50vw;
+}
+
+.bigLogo {
+	height: 30%;
+	width: 30%;
+}
