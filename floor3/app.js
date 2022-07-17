@@ -114,7 +114,7 @@ async function getRoomList(db, floorNumber){
   return floor;
 }
 
-floor1 = await getRoomList(db, 1);
+floor1 = await getRoomList(db, 3);
 
 // //console.log(JSON.stringify(floor1));
 // for (var i = 0; i < floor1.length; ++i){
@@ -131,11 +131,17 @@ var button = document.getElementById("button");
 
 var selectedRoom = null;
 
+var myImage = new Image(634, 424);
+myImage.src = "wireless_folsom3.png" ;
+ctx.drawImage(myImage,0,0);
+
+reload();
+
 function reload(){
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
   var myImage = new Image(634, 424);
-  myImage.src = "wireless_folsom1.png" ;
+  myImage.src = "wireless_folsom3.png" ;
   ctx.drawImage(myImage,0,0);
 
   for (var i = 0; i < floor1.length; i++){
@@ -238,7 +244,7 @@ canvas.onmouseup = function (e) {
       var y = floor1[i].data.topLeft[1] / canvas.height * canvas.scrollHeight;
 
       var dx = floor1[i].data.bottomRight[0] / canvas.width * canvas.scrollWidth;
-      var dy = floor1[i].data.bottomRight[1] / canvas.height  * canvas.scrollHeight;
+      var dy = floor1[i].data.bottomRight[1] / canvas.height * canvas.scrollHeight;
 
       //console.log(x,y, dx, dy);
       if (mouse.x > x && mouse.y > y && mouse.x < dx && mouse.y < dy){
@@ -257,8 +263,6 @@ canvas.onmouseup = function (e) {
     }
     //console.log("selected room:", selectedRoom);
 };
-
-reload();
 
 button.onclick = function () {
   if (selectedRoom.data.occupied){
