@@ -40,7 +40,7 @@ class Room {
 }
 
 // TODO: Replace the following with your app's Firebase project configuration
-const firebaseConfig = {
+export const firebaseConfig = {
   apiKey: "AIzaSyBbW8o4MQxx1UEa8-datcBWlEqlrBb9-gA",
   authDomain: "studyroomtracker.firebaseapp.com",
   databaseURL: "https://studyroomtracker-default-rtdb.firebaseio.com",
@@ -54,20 +54,8 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-var floor1 = [], floor2 = [], floor3 = [], floor4 = [];
-
-const unsub = onSnapshot(doc(db, "cities", "SF"), (doc) => {
-    console.log("Current data: ", doc.data());
-});
-
-// await setDoc(doc(db, "cities", "LA"), {
-//   name: "Los Angeles",
-//   state: "CA",
-//   country: "USA"
-// });
-
 // Get a list of cities from your database
-async function getCities(db) {
+export async function getCities(db) {
   const citiesCol = collection(db, 'cities');
   const citySnapshot = await getDocs(citiesCol);
   const cityList = citySnapshot.docs.map(doc => doc.data());
@@ -75,7 +63,7 @@ async function getCities(db) {
 }
 
 //create a list of room objects
-async function getFloor(db, floor) {
+export async function getFloor(db, floor) {
   var floorList = new Array();
   var result = await getDocs(collection(db,floor));
   var floor1Data = result.docs;
@@ -83,13 +71,13 @@ async function getFloor(db, floor) {
   return floorList;
 }
 
-async function idToRooms(floorList, db, floor){
+export async function idToRooms(floorList, db, floor){
   var list = new Array();
   for (var i = 0; i < floorList.length; ++i){
     let room = new Room;
     room.contructor(db, floorList[i], floor);
     onSnapshot(doc(db, floor, floorList[i]), (doc) => {room.data = doc.data();});
-    //await room.update();
+    await room.update();
     //room.update();
     //console.log(room.data);
     list.push(room);
@@ -98,7 +86,7 @@ async function idToRooms(floorList, db, floor){
   return list;
 }
 
-async function getRoomList(db, floorNumber){
+export async function getRoomList(db, floorNumber){
   var floorStr = "";
   if (floorNumber == 1){
     floorStr = "floor1";
@@ -114,11 +102,8 @@ async function getRoomList(db, floorNumber){
   return floor;
 }
 
-// //console.log(JSON.stringify(floor1));
-// for (var i = 0; i < floor1.length; ++i){
-//   console.log(floor1[i].data);
-// }
-// floor1[0].unoccupy();
+//floor1 = await getRoomList(db, 3);
+var floor1;
 
 var canvas = document.getElementById("mycanvas");
 const ctx = canvas.getContext('2d');
@@ -129,11 +114,11 @@ var button = document.getElementById("button");
 
 var selectedRoom = null;
 
-var myImage = new Image(666, 400);
-myImage.src = "wireless_folsom4.png" ;
-ctx.drawImage(myImage,0,0);
 
-floor1 = await getRoomList(db, 4);
+
+var myImage = new Image(692, 414);
+myImage.src = "wireless_folsom3.png" ;
+ctx.drawImage(myImage,0,0);
 
 reload();
 

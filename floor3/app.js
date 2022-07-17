@@ -88,10 +88,6 @@ async function idToRooms(floorList, db, floor){
   for (var i = 0; i < floorList.length; ++i){
     let room = new Room;
     room.contructor(db, floorList[i], floor);
-    onSnapshot(doc(db, floor, floorList[i]), (doc) => {room.data = doc.data();});
-    await room.update();
-    //room.update();
-    //console.log(room.data);
     list.push(room);
   }
 
@@ -114,14 +110,6 @@ async function getRoomList(db, floorNumber){
   return floor;
 }
 
-floor1 = await getRoomList(db, 3);
-
-// //console.log(JSON.stringify(floor1));
-// for (var i = 0; i < floor1.length; ++i){
-//   console.log(floor1[i].data);
-// }
-// floor1[0].unoccupy();
-
 var canvas = document.getElementById("mycanvas");
 const ctx = canvas.getContext('2d');
 
@@ -131,11 +119,11 @@ var button = document.getElementById("button");
 
 var selectedRoom = null;
 
-
-
 var myImage = new Image(692, 414);
 myImage.src = "wireless_folsom3.png" ;
 ctx.drawImage(myImage,0,0);
+
+floor1 = await getRoomList(db, 3);
 
 reload();
 
