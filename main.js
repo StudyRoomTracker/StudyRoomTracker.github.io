@@ -270,6 +270,7 @@ window.onclick = function(event) {
 }
 
 function login() {
+  document.getElementById('id01').style.display='none';
   //read input from email box
   var email = document.getElementByID("retrieveLogin").elements[0].value;
   //read input from password box
@@ -280,10 +281,10 @@ function login() {
     getAuth().getUserByEmail(email)
     .then((userRecord) => {
     // See the UserRecord reference doc for the contents of userRecord.
-      console.log(`Successfully fetched user data: ${userRecord.toJSON()}`);
+      alert(`Successfully fetched user data: ${userRecord.toJSON()}`);
     })
     .catch((error) => {
-      console.log('Error fetching user data:', error);
+      alert('Error fetching user data:', error);
     });
     alert("Not implemented!");
   } else {
