@@ -269,6 +269,8 @@ window.onclick = function(event) {
     }
 }
 
+document.getElementById("submitLogin").onclick = function() {login()};
+
 function login() {
   document.getElementById('id01').style.display='none';
   //read input from email box
