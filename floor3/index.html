@@ -18,8 +18,25 @@
           <a href="../about"><img src = "../logo-modified.png" class = "logoSpace"> </a>
 		  <li class="logo"><a href="../">Study Room Tracker &#128526</a></li>
       </div>
-    </nav>
-	
+      <button onclick="document.getElementById('id01').style.display='block'" style="width:auto;" class="loginbtn">Login</button>
+
+      <div id="id01" class="modal">
+
+        <form id="retrieveLogin" class="modal-content animate" action="/login_info.php" method="post">
+
+            <label for="email"><b>Email</b></label>
+            <input type="text" placeholder="Enter Email" name="email" required>
+
+            <label for="psw"><b>Password</b></label>
+            <input type="password" placeholder="Enter Password" name="psw" required>
+            <button id="submitLogin" type="button" class="loginbtn" style="width:100px" onclick="login();">Login</button> <!-- change to "button" and call js function -->
+
+            <button type="button" onclick="document.getElementById('id01').style.display='none'" class="loginbtn" style="background-color: #f44336; width: 100px">Cancel</button>
+        </form>
+      </div>
+
+      </nav>
+
 	<div class = "sidenav">
 		<div class = "menu2"> <br>
 			<a href="../floor1">Floor 1</a> <br>
@@ -28,7 +45,7 @@
 			<a href="../floor4">Floor 4</a> <br>
 		</div>
 	</div>
-    
+
   <div style="display:none;">
     <img id="source"
          src="wireless_folsom3.png"
