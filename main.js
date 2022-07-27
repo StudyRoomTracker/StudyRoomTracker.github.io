@@ -270,6 +270,7 @@ window.onclick = function(event) {
 }
 
 function login() {
+  document.getElementById('id01').style.display='none';
   //read input from email box
   var email = document.getElementByID("retrieveLogin").elements[0].value;
   //read input from password box
