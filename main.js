@@ -114,7 +114,7 @@ var button = document.getElementById("button");
 
 var selectedRoom = null;
 
-var modal = document.getElementById('id01');
+var modal = document.getElementById("id01");
 
 var loginButton = document.getElementById("submitLogin");
 
@@ -272,25 +272,6 @@ window.onclick = function(event) {
 
 loginButton.onclick = function () {
   alert("test!");
-  //read input from email box
-  var email = document.getElementById("retrieveLogin").elements[0].value;
-  //read input from password box
-  var psw = document.getElementById("retrieveLogin").elements[1].value;
-
-  if(email.match([^@]+@[^@]+\.[^@]+)) {
-    //valid email
-    getAuth().getUserByEmail(email)
-    .then((userRecord) => {
-    // See the UserRecord reference doc for the contents of userRecord.
-      alert(`Successfully fetched user data: ${userRecord.toJSON()}`);
-    })
-    .catch((error) => {
-      alert('Error fetching user data:', error);
-    });
-    alert("Not implemented!");
-  } else {
-    alert("This is not a valid email address.\nPlease enter a valid email and try again.");
-  }
 
 }
 
