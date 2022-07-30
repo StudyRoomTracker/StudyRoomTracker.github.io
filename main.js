@@ -1,7 +1,9 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-app.js";
-import { collection, doc, setDoc, getDocs, getDoc, onSnapshot, getFirestore,  QuerySnapshot } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-firestore.js"; 
+import { collection, doc, setDoc, getDocs, getDoc, onSnapshot, getFirestore,  QuerySnapshot} from "https://www.gstatic.com/firebasejs/9.4.0/firebase-firestore.js";
+import * as admin from "https://www.gstatic.com/firebasejs/9.9.1/firebase-auth.js";
 // Follow this pattern to import other Firebase services
 // import { } from 'firebase/<service>';
+
 
 class Room {
   contructor(_db, _ID, _floor){
@@ -40,6 +42,7 @@ class Room {
 }
 
 // TODO: Replace the following with your app's Firebase project configuration
+
 export const firebaseConfig = {
   apiKey: "AIzaSyBbW8o4MQxx1UEa8-datcBWlEqlrBb9-gA",
   authDomain: "studyroomtracker.firebaseapp.com",
@@ -48,7 +51,8 @@ export const firebaseConfig = {
   storageBucket: "studyroomtracker.appspot.com",
   messagingSenderId: "380986676354",
   appId: "1:380986676354:web:dd2bf38160c807d086109b",
-  measurementId: "G-ST790R47GE"
+  measurementId: "G-ST790R47GE",
+  credential: admin.credential.cert(serviceAccount)
 };
 
 const app = initializeApp(firebaseConfig);
@@ -118,9 +122,41 @@ var selectedRoom = null;
 
 var modal = document.getElementById("id01");
 
-var loginButton = document.getElementById("submitLogin.loginbtn");
+var loginButton = document.getElementById("submitLogin");
 
 
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
+
+loginButton.onclick = function () {
+  alert("test!");
+  //read input from email box
+  var email = document.getElementById("emailBox").value;
+  alert("email has value: " + email);
+  //read input from password box
+  var psw = document.getElementById("passBox").value;
+  
+  const validEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if(email.match(validEmail)) {
+    //valid email
+    getAuth().getUserByEmail(email)
+    .then((userRecord) => {
+    // See the UserRecord reference doc for the contents of userRecord.
+      alert("Successfully fetched user data");
+    })
+    .catch((error) => {
+      alert("Error fetching user data");
+    });
+    alert("Not implemented!");
+  } else {
+    alert("This is not a valid email address.\nPlease enter a valid email and try again.");
+  }
+}
 /*
 var myImage = new Image(692, 414);
 myImage.src = "wireless_folsom3.png" ;
@@ -268,36 +304,6 @@ button.onclick = function () {
 */
 
 
-// When the user clicks anywhere outside of the modal, close it
-window.onclick = function(event) {
-    if (event.target == modal) {
-        modal.style.display = "none";
-    }
-}
-
-loginButton.onclick = function () {
-  alert("test!");
-
-}
 
 /*
-  //read input from email box
-  var email = document.getElementById("retrieveLogin").elements[0].value;
-  //read input from password box
-  var psw = document.getElementById("retrieveLogin").elements[1].value;
-
-  if(email.match([^@]+@[^@]+\.[^@]+)) {
-    //valid email
-    getAuth().getUserByEmail(email)
-    .then((userRecord) => {
-    // See the UserRecord reference doc for the contents of userRecord.
-      alert("Successfully fetched user data");
-    })
-    .catch((error) => {
-      alert("Error fetching user data");
-    });
-    alert("Not implemented!");
-  } else {
-    alert("This is not a valid email address.\nPlease enter a valid email and try again.");
-  }
 */
