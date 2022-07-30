@@ -125,12 +125,10 @@ var loginButton = document.getElementById("submitLogin");
 var myImage = new Image(692, 414);
 myImage.src = "wireless_folsom3.png" ;
 ctx.drawImage(myImage,0,0);
-*/
 
 reload();
 
 function reload(){
-  /*
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   ctx.drawImage(myImage,0,0);
 
@@ -149,8 +147,8 @@ function reload(){
   if (selectedRoom != null){
     drawSelectedRoom();
   }
-  */
 }
+*/
 
 var mouse = {
         down: false,
@@ -176,7 +174,6 @@ canvas.onmousedown = function (e) {
     infoDisplay.innerHTML = "Room Number: <br> Status: <br>";
     button.style.visibility = "hidden";
 };
-*/
 
 function drawSelectedRoom(){
   ctx.beginPath();
@@ -222,7 +219,6 @@ function drawSelectedRoom(){
   button.style.visibility = "visible";
 }
 
-/*
 canvas.onmouseup = function (e) {
     mouse.down = false;
     e.preventDefault();
@@ -256,7 +252,6 @@ canvas.onmouseup = function (e) {
     }
     //console.log("selected room:", selectedRoom);
 };
-*/
 
 button.onclick = function () {
   if (selectedRoom.data.occupied){
@@ -270,6 +265,7 @@ button.onclick = function () {
   }
   reload();
 }
+*/
 
 
 // When the user clicks anywhere outside of the modal, close it
@@ -284,3 +280,24 @@ loginButton.onclick = function () {
 
 }
 
+/*
+  //read input from email box
+  var email = document.getElementById("retrieveLogin").elements[0].value;
+  //read input from password box
+  var psw = document.getElementById("retrieveLogin").elements[1].value;
+
+  if(email.match([^@]+@[^@]+\.[^@]+)) {
+    //valid email
+    getAuth().getUserByEmail(email)
+    .then((userRecord) => {
+    // See the UserRecord reference doc for the contents of userRecord.
+      alert("Successfully fetched user data");
+    })
+    .catch((error) => {
+      alert("Error fetching user data");
+    });
+    alert("Not implemented!");
+  } else {
+    alert("This is not a valid email address.\nPlease enter a valid email and try again.");
+  }
+*/
