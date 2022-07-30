@@ -105,8 +105,10 @@ export async function getRoomList(db, floorNumber){
 //floor1 = await getRoomList(db, 3);
 var floor1;
 
+/*
 var canvas = document.getElementById("mycanvas");
 const ctx = canvas.getContext('2d');
+*/
 
 var infoDisplay = document.getElementById("info");
 
@@ -127,8 +129,10 @@ ctx.drawImage(myImage,0,0);
 reload();
 
 function reload(){
+  /*
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   ctx.drawImage(myImage,0,0);
+  */
 
   for (var i = 0; i < floor1.length; i++){
     ctx.beginPath();
@@ -156,7 +160,7 @@ var mouse = {
         py: 0
     };
 
-
+/*
 canvas.onmousedown = function (e) {
     mouse.button = e.which;
     mouse.px = mouse.x;
@@ -171,6 +175,7 @@ canvas.onmousedown = function (e) {
     infoDisplay.innerHTML = "Room Number: <br> Status: <br>";
     button.style.visibility = "hidden";
 };
+*/
 
 function drawSelectedRoom(){
   ctx.beginPath();
@@ -216,6 +221,7 @@ function drawSelectedRoom(){
   button.style.visibility = "visible";
 }
 
+/*
 canvas.onmouseup = function (e) {
     mouse.down = false;
     e.preventDefault();
@@ -249,6 +255,7 @@ canvas.onmouseup = function (e) {
     }
     //console.log("selected room:", selectedRoom);
 };
+*/
 
 button.onclick = function () {
   if (selectedRoom.data.occupied){
