@@ -271,6 +271,7 @@ window.onclick = function(event) {
 }
 
 loginButton.onclick = function () {
+  alert("test!");
   //read input from email box
   var email = document.getElementByID("retrieveLogin").elements[0].value;
   //read input from password box
