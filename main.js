@@ -116,7 +116,7 @@ var selectedRoom = null;
 
 var modal = document.getElementById('id01');
 
-var loginButton = document.getElementByID("submitLogin");
+var loginButton = document.getElementById("submitLogin");
 
 
 var myImage = new Image(692, 414);
@@ -273,9 +273,9 @@ window.onclick = function(event) {
 loginButton.onclick = function () {
   alert("test!");
   //read input from email box
-  var email = document.getElementByID("retrieveLogin").elements[0].value;
+  var email = document.getElementById("retrieveLogin").elements[0].value;
   //read input from password box
-  var psw = document.getElementByID("retrieveLogin").elements[1].value;
+  var psw = document.getElementById("retrieveLogin").elements[1].value;
 
   if(email.match([^@]+@[^@]+\.[^@]+)) {
     //valid email
