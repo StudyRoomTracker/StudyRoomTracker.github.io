@@ -114,6 +114,9 @@ var button = document.getElementById("button");
 
 var selectedRoom = null;
 
+var modal = document.getElementById('id01');
+
+var loginButton = document.getElementByID("submitLogin");
 
 
 var myImage = new Image(692, 414);
@@ -259,8 +262,6 @@ button.onclick = function () {
   reload();
 }
 
-// Get the modal
-var modal = document.getElementById('id01');
 
 // When the user clicks anywhere outside of the modal, close it
 window.onclick = function(event) {
@@ -268,8 +269,6 @@ window.onclick = function(event) {
         modal.style.display = "none";
     }
 }
-
-var loginButton = document.getElementByID("submitLogin");
 
 loginButton.onclick = function () {
   //read input from email box
