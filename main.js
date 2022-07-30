@@ -123,7 +123,9 @@ var loginButton = document.getElementById("submitLogin");
 
 var myImage = new Image(692, 414);
 myImage.src = "wireless_folsom3.png" ;
+/*
 ctx.drawImage(myImage,0,0);
+*/
 
 reload();
 
