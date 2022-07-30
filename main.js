@@ -118,7 +118,7 @@ var selectedRoom = null;
 
 var modal = document.getElementById("id01");
 
-var loginButton = document.getElementById("submitLogin");
+var loginButton = document.getElementById("submitLogin.loginbtn");
 
 
 /*
