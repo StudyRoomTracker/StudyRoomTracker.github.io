@@ -118,8 +118,7 @@ var selectedRoom = null;
 
 var modal = document.getElementById("id01");
 
-var loginButton = document.getElementById("submitLogin.loginbtn");
-document.addEventListener("click", login)
+var loginButton = document.getElementById("submitLogin");
 
 
 var myImage = new Image(692, 414);
