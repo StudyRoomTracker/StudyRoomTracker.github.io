@@ -133,7 +133,6 @@ function reload(){
   /*
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   ctx.drawImage(myImage,0,0);
-  */
 
   for (var i = 0; i < floor1.length; i++){
     ctx.beginPath();
@@ -150,6 +149,7 @@ function reload(){
   if (selectedRoom != null){
     drawSelectedRoom();
   }
+  */
 }
 
 var mouse = {
@@ -279,7 +279,7 @@ window.onclick = function(event) {
     }
 }
 
-function login() {
+loginButton.onclick = funciton () {
   alert("test!");
 
 }
