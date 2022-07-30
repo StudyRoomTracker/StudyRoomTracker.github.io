@@ -262,7 +262,6 @@ canvas.onmouseup = function (e) {
 };
 
 button.onclick = function () {
-  alert("TEST");
   if (selectedRoom.data.occupied){
     selectedRoom.unoccupy();
     button.style.background = "rgb(0,255,0)";
