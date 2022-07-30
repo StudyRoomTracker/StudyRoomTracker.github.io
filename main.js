@@ -116,7 +116,7 @@ var selectedRoom = null;
 
 var modal = document.getElementById("id01");
 
-var loginButton = document.querySelector(".id01 .retrieveLogin .submitLogin");
+var loginButton = document.getElementById("submitLogin");
 
 
 var myImage = new Image(692, 414);
