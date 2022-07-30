@@ -279,7 +279,7 @@ window.onclick = function(event) {
     }
 }
 
-loginButton.onclick = funciton () {
+loginButton.onclick = function () {
   alert("test!");
 
 }
