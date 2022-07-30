@@ -117,6 +117,7 @@ var selectedRoom = null;
 var modal = document.getElementById("id01");
 
 var loginButton = document.getElementById("submitLogin.loginbtn");
+document.addEventListener("click", login)
 
 
 var myImage = new Image(692, 414);
@@ -270,7 +271,7 @@ window.onclick = function(event) {
     }
 }
 
-loginButton.onclick = function () {
+function login() {
   alert("test!");
 
 }
