@@ -3,43 +3,7 @@ import { collection, doc, setDoc, getDocs, getDoc, onSnapshot, getFirestore,  Qu
 // Follow this pattern to import other Firebase services
 // import { } from 'firebase/<service>';
 
-class Room {
-  contructor(_db, _ID, _floor){
-    this.ID = _ID;
-    this.floor = _floor;
-    this.DB = _db
-    this.data = null;
-    const check = onSnapshot(doc(_db, _floor, _ID), (doc) => {this.data = doc.data(); reload();});
-    //console.log(this.data);
-  }
-
-  printToConsole(){
-    console.log(this.data);
-  }
-
-  async update(){
-    var temp = await getDoc(doc(this.DB, this.floor, this.ID));
-    this.data = temp.data();
-    //console.log(this.data);
-  }
-
-  async occupy(){
-    if (this.data["occupied"] == false){
-      this.data["time"]["seconds"] = Math.round(Date.now() / 1000);
-      this.data["time"]["nanoseconds"] = Date.now() % 1000;
-      this.data["occupied"] = true;
-      await setDoc(doc(this.DB, this.floor, this.ID), this.data); 
-    }
-  }
-
-  async unoccupy(){
-    //console.log(this.data["occupied"]);
-    if (this.data["occupied"] == true){
-      this.data["occupied"] = false;
-      await setDoc(doc(this.DB, this.floor, this.ID), this.data); 
-    }
-  }
-}
+import {Room} from "./main.js";
 
 // TODO: Replace the following with your app's Firebase project configuration
 const firebaseConfig = {
@@ -90,6 +54,7 @@ async function idToRooms(floorList, db, floor){
   for (var i = 0; i < floorList.length; ++i){
     let room = new Room;
     room.contructor(db, floorList[i], floor);
+    //onSnapshot(doc(db, floor, floorList[i]), (doc) => {room.data = doc.data();});
     //await room.update();
     //room.update();
     //console.log(room.data);
@@ -112,7 +77,6 @@ async function getRoomList(db, floorNumber){
   }
   var floor = await getFloor(db, floorStr);
   floor = await idToRooms(floor, db, floorStr);
-
   return floor;
 }
 
@@ -131,15 +95,11 @@ var button = document.getElementById("button");
 
 var selectedRoom = null;
 
-var myImage = new Image(666, 400);
-myImage.src = "wireless_folsom4.png" ;
+var myImage = new Image(634, 424);
+myImage.src = "wireless_folsom1.png";
 ctx.drawImage(myImage,0,0);
 
-floor1 = await getRoomList(db, 4);
-
-
-
-//reload();
+floor1 = await getRoomList(db, 1);
 
 function reload(){
   ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -151,7 +111,7 @@ function reload(){
     }
     ctx.beginPath();
     ctx.lineWidth = "4";
-    if (floor1[i].data.occupied || !floor1[i].data.available){
+    if (floor1[i].data.occupied){
       ctx.strokeStyle = "rgba(255,0,0,.5)";
     } else {
       ctx.strokeStyle = "rgba(0,255,0,.5)";
@@ -215,14 +175,14 @@ function drawSelectedRoom(){
   ctx.stroke();
 
   var status = "Occupied";
-  if (!selectedRoom.data.occupied){
+  if (!selectedRoom.occupied){
     status = "Unoccupied";
   }
 
-  var canUse = " ";
-  if (!selectedRoom.data.available){
+  var canUse = "";
+  if (selectedRoom.available){
     canUse = "Room is closed";
-  } 
+  }
 
   infoDisplay.innerHTML = "Room Number: " + selectedRoom.ID + "<br>" + "Status: " + status + "<br>" + canUse;
 
@@ -235,9 +195,7 @@ function drawSelectedRoom(){
     button.innerHTML = "Occupy";
   }
 
-  if (selectedRoom.data.available){
-    button.style.visibility = "visible";
-  }
+  button.style.visibility = "visible";
 }
 
 canvas.onmouseup = function (e) {
@@ -247,14 +205,14 @@ canvas.onmouseup = function (e) {
     var rect = canvas.getBoundingClientRect();
 
     var changed = false;
-    //console.log(floor1.length);
+
     for (var i = 0; i < floor1.length; i++){
       //console.log(mouse.x , mouse.y);
       var x = floor1[i].data.topLeft[0] / canvas.width * canvas.scrollWidth;
       var y = floor1[i].data.topLeft[1] / canvas.height * canvas.scrollHeight;
 
       var dx = floor1[i].data.bottomRight[0] / canvas.width * canvas.scrollWidth;
-      var dy = floor1[i].data.bottomRight[1] / canvas.height * canvas.scrollHeight;
+      var dy = floor1[i].data.bottomRight[1] / canvas.height  * canvas.scrollHeight;
 
       //console.log(x,y, dx, dy);
       if (mouse.x > x && mouse.y > y && mouse.x < dx && mouse.y < dy){
@@ -287,6 +245,10 @@ button.onclick = function () {
   reload();
 }
 
+var intervalID = window.setInterval(myCallback, 10);
 
+function myCallback() {
+  reload();
+}
 
 

@@ -24,7 +24,11 @@ class Room {
   }
 
   async occupy(){
+    //console.log(this.data["time"]["seconds"]);
+    //console.log(Math.round(Date.now() / 1000));
     if (this.data["occupied"] == false){
+      this.data["time"]["seconds"] = Math.round(Date.now() / 1000);
+      this.data["time"]["nanoseconds"] = Date.now() % 1000;
       this.data["occupied"] = true;
       await setDoc(doc(this.DB, this.floor, this.ID), this.data); 
     }
@@ -140,6 +144,9 @@ function reload(){
   ctx.drawImage(myImage,0,0);
 
   for (var i = 0; i < floor1.length; i++){
+    if (Math.round(Date.now() / 1000) - floor1[i].data["time"]["seconds"] >= 7200){
+      floor1[i].unoccupy();
+    }
     ctx.beginPath();
     ctx.lineWidth = "4";
     if (floor1[i].data.occupied){
@@ -190,6 +197,10 @@ function drawSelectedRoom(){
     ctx.fillStyle = "rgba(255,0,0,.25)";
   } else {
     ctx.fillStyle = "rgba(0,255,0,.25)";
+  }
+
+  if (!selectedRoom.data.available){
+    ctx.fillStyle = "rgba(255,0,0,.25)";
   }
 
   ctx.fillRect(selectedRoom.data.topLeft[0], selectedRoom.data.topLeft[1], selectedRoom.data.bottomRight[0] - selectedRoom.data.topLeft[0], selectedRoom.data.bottomRight[1] - selectedRoom.data.topLeft[1]);
@@ -272,6 +283,10 @@ button.onclick = function () {
   reload();
 }
 
+var intervalID = window.setInterval(myCallback, 10);
 
+function myCallback() {
+  reload();
+}
 
 
