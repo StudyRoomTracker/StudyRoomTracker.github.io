@@ -34,7 +34,6 @@
       <div class = "menu">
           <a href="about"><img src = "logo-modified.png" class = "logoSpace"> </a>
 		  <li class="logo"><a href=".">Study Room Tracker &#128526</a></li>
-		  <li class="logo" style="margin:auto;"><a href ="hours">Hours</a></li>
 
       </div>
     <button onclick="document.getElementById('id01').style.display='block'" style="width:auto;" class="loginbtn">Login</button>
@@ -44,11 +43,11 @@
       <div id="retrieveLogin" class="modal-content animate">
 
           <label for="email"><b>Email</b></label>
-          <input id="emailBox" type="text" placeholder="Enter Email" name="email" required>
+          <input id = "einput" type="text" placeholder="Enter Email" name="email" required>
 
           <label for="psw"><b>Password</b></label>
-          <input id="passBox" type="password" placeholder="Enter Password" name="psw" required>
-
+          <input id = "pinput" type="password" placeholder="Enter Password" name="psw" required>
+          
           <button id="submitLogin" class="loginbtn" style="width:100px">Login</button> <!-- change to "button" and call js function -->
 
           <button type="button" onclick="document.getElementById('id01').style.display='none'" class="loginbtn" style="background-color: #f44336; width: 100px">Cancel</button>
