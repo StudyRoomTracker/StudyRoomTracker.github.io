@@ -1,6 +1,6 @@
 import { initializeApp} from "https://www.gstatic.com/firebasejs/9.9.1/firebase-app.js";
 //import { collection, doc, setDoc, getDocs, getDoc, onSnapshot, getFirestore,  QuerySnapshot } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-firestore.js"; 
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'https://www.gstatic.com/firebasejs/9.9.1/firebase-auth.js'
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged} from 'https://www.gstatic.com/firebasejs/9.9.1/firebase-auth.js'
 //import { getAuth } from 'https://www.gstatic.com/firebasejs/9.9.1/firebase-auth.js'
 
 
@@ -46,51 +46,76 @@ window.onclick = function(event) {
 }
 
 loginButton.onclick = function (e) {
-  emailDescription.innerHTML ="";
-  passwordDescription.innerHTML ="";
+  console.log(null != auth.currentUser.email);
+  if (null == auth.currentUser.email){
 
-  console.log(emailInput.value);
-  console.log(passwordInput.value);
-  if (emailInput.value.length == 0){
-    emailDescription.innerHTML = "Invalid email";
-  } else if (passwordInput.value.length == 0){
-    passwordDescription.innerHTML = "Invalid Password";
-  } else {
-    signInWithEmailAndPassword(auth, emailInput.value, passwordInput.value)
-    .then((userCredential) => {
-      const user = userCredential.user;
-      console.log("signed in", user.email, user.displayName);
-      return;
-    })
-    .catch((error) => {
-      const errorCode = error.code;
-      const errorMessage = error.message;
-      console.log("can't sign in:", errorCode);
-      if (errorCode === "auth/wrong-password"){
-        passwordDescription.innerHTML = "Incorrect password for email";
-      } else if (errorCode === "auth/invalid-email") {
-        emailDescription.innerHTML = "email must be in the form __@__.__";
-      } else if (errorCode === "auth/user-not-found"){
-        createUserWithEmailAndPassword(auth, emailInput.value, passwordInput.value).then((result) => {
-          const user = result.user;
-          console.log("created account", user.email, user.displayName);
-          navigate("/");
-          modal.style.display = "none";
-        })
-        .catch((error) => {
-          const errorCode = error.code;
-          const errorMessage = error.message;
-          console.log("can't create account:", errorCode);
-          if (errorCode === "auth/weak-password"){
-            passwordDescription.innerHTML = "Password must at least 6 characters long";
-          }
-        });
-      } 
+    emailDescription.innerHTML ="";
+    passwordDescription.innerHTML ="";
 
-    });
+    console.log(emailInput.value);
+    console.log(passwordInput.value);
+    if (emailInput.value.length == 0){
+      emailDescription.innerHTML = "Invalid email";
+    } else if (passwordInput.value.length == 0){
+      passwordDescription.innerHTML = "Invalid Password";
+    } else {
+      signInWithEmailAndPassword(auth, emailInput.value, passwordInput.value)
+      .then((userCredential) => {
+        const user = userCredential.user;
+        console.log("signed in", user.email, user.displayName);
+        return;
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log("can't sign in:", errorCode);
+        if (errorCode === "auth/wrong-password"){
+          passwordDescription.innerHTML = "Incorrect password for email";
+        } else if (errorCode === "auth/invalid-email") {
+          emailDescription.innerHTML = "email must be in the form __@__.__";
+        } else if (errorCode === "auth/user-not-found"){
+          createUserWithEmailAndPassword(auth, emailInput.value, passwordInput.value).then((result) => {
+            const user = result.user;
+            console.log("created account", user.email, user.displayName);
+            navigate("/");
+            modal.style.display = "none";
+          })
+          .catch((error) => {
+            const errorCode = error.code;
+            const errorMessage = error.message;
+            console.log("can't create account:", errorCode);
+            if (errorCode === "auth/weak-password"){
+              passwordDescription.innerHTML = "Password must at least 6 characters long";
+            }
+          });
+        } 
+
+      });
+    }
   }
 
-  if (auth.currentUser){
+  if (null != auth.currentUser){
+    signInMessage.innerHTML = "Signed in as " + auth.currentUser.email;
+    mainLoginButton.innerHTML = auth.currentUser.email;
+    loginButton.innerHTML = "Change Accounts"
+  }
+}
+onAuthStateChanged(auth, (user) => {
+  if (user) {
+    // User is signed in, see docs for a list of available properties
+    // https://firebase.google.com/docs/reference/js/firebase.User
+    const uid = user.uid;
+    onLoadLogin();
+  } else {
+    // User is signed out
+    // ...
+  }
+});
+
+function onLoadLogin(){
+  //await auth;
+  console.log(auth.currentUser);
+  if (null != auth.currentUser){
     signInMessage.innerHTML = "Signed in as " + auth.currentUser.email;
     mainLoginButton.innerHTML = auth.currentUser.email;
     loginButton.innerHTML = "Change Accounts"
