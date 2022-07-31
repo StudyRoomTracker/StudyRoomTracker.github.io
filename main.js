@@ -47,52 +47,50 @@ window.onclick = function(event) {
 
 //does the work of signing in or creating an account
 loginButton.onclick = function (e) {
-  console.log(null != auth.currentUser.email);
-  if (null == auth.currentUser.email){
+  //console.log(null != auth.currentUser.email);
 
-    emailDescription.innerHTML ="";
-    passwordDescription.innerHTML ="";
+  emailDescription.innerHTML ="";
+  passwordDescription.innerHTML ="";
 
-    console.log(emailInput.value);
-    console.log(passwordInput.value);
-    if (emailInput.value.length == 0){
-      emailDescription.innerHTML = "Invalid email";
-    } else if (passwordInput.value.length == 0){
-      passwordDescription.innerHTML = "Invalid Password";
-    } else {
-      signInWithEmailAndPassword(auth, emailInput.value, passwordInput.value)
-      .then((userCredential) => {
-        const user = userCredential.user;
-        console.log("signed in", user.email, user.displayName);
-        return;
-      })
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        console.log("can't sign in:", errorCode);
-        if (errorCode === "auth/wrong-password"){
-          passwordDescription.innerHTML = "Incorrect password for email";
-        } else if (errorCode === "auth/invalid-email") {
-          emailDescription.innerHTML = "email must be in the form __@__.__";
-        } else if (errorCode === "auth/user-not-found"){
-          createUserWithEmailAndPassword(auth, emailInput.value, passwordInput.value).then((result) => {
-            const user = result.user;
-            console.log("created account", user.email, user.displayName);
-            navigate("/");
-            modal.style.display = "none";
-          })
-          .catch((error) => {
-            const errorCode = error.code;
-            const errorMessage = error.message;
-            console.log("can't create account:", errorCode);
-            if (errorCode === "auth/weak-password"){
-              passwordDescription.innerHTML = "Password must at least 6 characters long";
-            }
-          });
-        } 
+  console.log(emailInput.value);
+  console.log(passwordInput.value);
+  if (emailInput.value.length == 0){
+    emailDescription.innerHTML = "Invalid email";
+  } else if (passwordInput.value.length == 0){
+    passwordDescription.innerHTML = "Invalid Password";
+  } else {
+    signInWithEmailAndPassword(auth, emailInput.value, passwordInput.value)
+    .then((userCredential) => {
+      const user = userCredential.user;
+      console.log("signed in", user.email, user.displayName);
+      return;
+    })
+    .catch((error) => {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      console.log("can't sign in:", errorCode);
+      if (errorCode === "auth/wrong-password"){
+        passwordDescription.innerHTML = "Incorrect password for email";
+      } else if (errorCode === "auth/invalid-email") {
+        emailDescription.innerHTML = "email must be in the form __@__.__";
+      } else if (errorCode === "auth/user-not-found"){
+        createUserWithEmailAndPassword(auth, emailInput.value, passwordInput.value).then((result) => {
+          const user = result.user;
+          console.log("created account", user.email, user.displayName);
+          navigate("/");
+          modal.style.display = "none";
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          console.log("can't create account:", errorCode);
+          if (errorCode === "auth/weak-password"){
+            passwordDescription.innerHTML = "Password must at least 6 characters long";
+          }
+        });
+      } 
 
-      });
-    }
+    });
   }
 
   if (null != auth.currentUser){
