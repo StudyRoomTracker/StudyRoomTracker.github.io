@@ -36,6 +36,26 @@
           <a href="."><img src = "../logo-modified.png" class = "logoSpace"> </a>
 		  <li class="logo"><a href="../">Study Room Tracker &#128526</a></li>
 		  <li class="logo" style="margin:auto;"><a href ="../hours">Hours</a></li>
+    </div>
+            <button id = "mainLogin" onclick="document.getElementById('id01').style.display='block'" style="width:auto;" class="loginbtn">Login</button>
+
+    <div id="id01" class="modal">
+
+      <div id="retrieveLogin" class="modal-content animate">
+          <p id = "signIn"></p>
+          <label for="email"><b>Email</b></label>
+          <p id = "emailDescription" style = "color:red"></p>
+          <input id = "einput" type="text" placeholder="Enter Email" name="email" required>
+
+          <label for="psw"><b>Password (must be at least 6 characters)</b></label>
+          <p id = "passwordDescription" style="color:red"></p>
+          <input id = "pinput" type="password" placeholder="Enter Password" name="psw" required>
+          
+          <button id="submitLogin" class="loginbtn" style="width:100px">Login</button> <!-- change to "button" and call js function -->
+
+          <button type="button" onclick="document.getElementById('id01').style.display='none'" class="loginbtn" style="background-color: #f44336; width: 100px">Cancel</button>
+      </div>
+    </div>
       </div>
     </nav>
 	
@@ -61,6 +81,6 @@
 		</pre>
 	</div>
 
-
+  <script type="module" src = "../main.js"></script>
   </body>
 </html>
