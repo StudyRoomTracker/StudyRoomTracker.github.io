@@ -1,7 +1,8 @@
 {
-  "type": "module",
+  "type": "module";
   "dependencies": {
     "firebase": "^9.6.11",
+    "firebase-admin": "^11.0.1",
     "firebaseui": "^6.0.1"
   }
 }
