@@ -16,20 +16,20 @@ class Room {
   printToConsole(){
     console.log(this.data);
   }
-
+  //update the room status
   async update(){
     var temp = await getDoc(doc(this.DB, this.floor, this.ID));
     this.data = temp.data();
     //console.log(this.data);
   }
-
+  //display if the room is occupied
   async occupy(){
     if (this.data["occupied"] == false){
       this.data["occupied"] = true;
       await setDoc(doc(this.DB, this.floor, this.ID), this.data); 
     }
   }
-
+  //display if the the room is unoccupied
   async unoccupy(){
     //console.log(this.data["occupied"]);
     if (this.data["occupied"] == true){
@@ -84,7 +84,7 @@ async function getFloor(db, floor) {
   floor1Data.forEach((DOC) => floorList.push(DOC.id));
   return floorList;
 }
-
+//assign ID to the rooms
 async function idToRooms(floorList, db, floor){
   var list = new Array();
   for (var i = 0; i < floorList.length; ++i){
@@ -96,7 +96,7 @@ async function idToRooms(floorList, db, floor){
 
   return list;
 }
-
+//select floor 
 async function getRoomList(db, floorNumber){
   var floorStr = "";
   if (floorNumber == 1){
@@ -128,7 +128,7 @@ ctx.drawImage(myImage,0,0);
 
 floor1 = await getRoomList(db, 3);
 
-
+//refresh the floor page
 function reload(){
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   ctx.drawImage(myImage,0,0);
@@ -162,7 +162,7 @@ var mouse = {
         py: 0
     };
 
-
+//display info about the room
 canvas.onmousedown = function (e) {
     mouse.button = e.which;
     mouse.px = mouse.x;
@@ -177,7 +177,7 @@ canvas.onmousedown = function (e) {
     infoDisplay.innerHTML = "Room Number: <br> Status: <br>";
     button.style.visibility = "hidden";
 };
-
+//display the status of a room
 function drawSelectedRoom(){
   ctx.beginPath();
   ctx.lineWidth = "2";
@@ -226,7 +226,7 @@ function drawSelectedRoom(){
     button.style.visibility = "visible";
   }
 }
-
+//the mouse selects the room
 canvas.onmouseup = function (e) {
     mouse.down = false;
     e.preventDefault();
@@ -260,7 +260,7 @@ canvas.onmouseup = function (e) {
     }
     //console.log("selected room:", selectedRoom);
 };
-
+//click on the button to occupy or unoccupy room
 button.onclick = function () {
   if (selectedRoom.data.occupied){
     selectedRoom.unoccupy();

@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html>
   <head>
     <meta charset="utf-8">
@@ -10,7 +11,7 @@
 
   </head>
   <body>
-
+    <!-- display login -->
     <nav class = "navbar">
       <div class = "menu">
           <a href="../about"><img src = "../logo-modified.png" class = "logoSpace"> </a>
@@ -38,7 +39,7 @@
     </div>
 
       </nav>
-
+  <!-- display floors -->
 	<div class = "sidenav">
 		<div class = "menu2"> <br>
 			<a href="../floor1" class="active">Floor 1</a> <br>
@@ -49,6 +50,7 @@
 	</div>
 
 	<!--<br>-->
+  <!-- display floor1 page -->
   <div style="display:none;">
     <img id="source"
          src="wireless_folsom1.png"
@@ -57,8 +59,10 @@
     <div class="center">
       <canvas id = "mycanvas" width=634 height=424 > </canvas>
       <div style="width:20vw;">
+        <!-- display room number and status -->
         <p id = "info"> Room Number: <br> Status: <br></p>
         <button id="button" style="visibility: hidden;"></button>
+        <!-- display compass -->
         <img id="source" src="../compass.jpg" style="width:220px; height:200px; float:left;">
       </div>
 

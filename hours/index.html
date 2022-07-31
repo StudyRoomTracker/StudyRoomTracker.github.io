@@ -36,28 +36,25 @@
 		  <li class="logo"><a href="../">Study Room Tracker &#128526</a></li>
 		  <li class="logo" style="margin:auto;"><a href ="../hours">Hours</a></li>
       </div>
-        <button id = "mainLogin" onclick="document.getElementById('id01').style.display='block'" style="width:auto;" class="loginbtn">Login</button>
+      <button onclick="document.getElementById('id01').style.display='block'" style="width:auto;" class="loginbtn">Login</button>
 
-    <div id="id01" class="modal">
+      <div id="id01" class="modal">
+      	<!-- login system -->
+        <form id="retrieveLogin" class="modal-content animate" action="/login_info.php" method="post">
 
-      <div id="retrieveLogin" class="modal-content animate">
-          <p id = "signIn"></p>
-          <label for="email"><b>Email</b></label>
-          <p id = "emailDescription" style = "color:red"></p>
-          <input id = "einput" type="text" placeholder="Enter Email" name="email" required>
+            <label for="email"><b>Email</b></label>
+            <input type="text" placeholder="Enter Email" name="email" required>
 
-          <label for="psw"><b>Password (must be at least 6 characters)</b></label>
-          <p id = "passwordDescription" style="color:red"></p>
-          <input id = "pinput" type="password" placeholder="Enter Password" name="psw" required>
-          
-          <button id="submitLogin" class="loginbtn" style="width:100px">Login</button> <!-- change to "button" and call js function -->
+            <label for="psw"><b>Password</b></label>
+            <input type="password" placeholder="Enter Password" name="psw" required>
+            <button id="submitLogin" type="button" class="loginbtn" style="width:100px" onclick="login();">Login</button> <!-- change to "button" and call js function -->
 
-          <button type="button" onclick="document.getElementById('id01').style.display='none'" class="loginbtn" style="background-color: #f44336; width: 100px">Cancel</button>
+            <button type="button" onclick="document.getElementById('id01').style.display='none'" class="loginbtn" style="background-color: #f44336; width: 100px">Cancel</button>
+        </form>
       </div>
-    </div>
 
       </nav>
-
+      <!-- display floors -->
 	<div class = "sidenav">
 		<div class = "menu2"> <br>
 			<a href="../floor1">Floor 1</a> <br>
@@ -72,7 +69,7 @@
 			<a href="RPI_Campus_Map.png" target="_blank" rel="noopener noreferrer">
 			<img src="RPI_Campus_Map.png" style="height:60vh;width:30vw;"> </a>
 		</div>
-		
+			<!-- display library hours of operation -->
 		<div style="float:right;">
 		<h1>Folsom Library Hours of Operation</h1> <br>
 		<p>(Summer)</p>
@@ -99,7 +96,6 @@
 		</div>
 	</div>
 
-		<script type="module" src = "../main.js"></script>
     <script type="module" src = "app.js"></script>
 
   </body>
