@@ -3,6 +3,7 @@ import { collection, doc, setDoc, getDocs, getDoc, onSnapshot, getFirestore,  Qu
 // Follow this pattern to import other Firebase services
 // import { } from 'firebase/<service>';
 
+//Room class which holds all of the room information
 class Room {
   contructor(_db, _ID, _floor){
     this.ID = _ID;
@@ -10,7 +11,6 @@ class Room {
     this.DB = _db
     this.data;
     const check = onSnapshot(doc(_db, _floor, _ID), (doc) => {this.data = doc.data(); reload();});
-    //console.log(this.data);
   }
 
   printToConsole(){
@@ -24,8 +24,6 @@ class Room {
   }
 
   async occupy(){
-    //console.log(this.data["time"]["seconds"]);
-    //console.log(Math.round(Date.now() / 1000));
     if (this.data["occupied"] == false){
       this.data["time"]["seconds"] = Math.round(Date.now() / 1000);
       this.data["time"]["nanoseconds"] = Date.now() % 1000;

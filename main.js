@@ -19,7 +19,7 @@ export const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 //const db = getFirestore(app);
 
-
+//get all of the html elements
 var selectedRoom = null;
 
 var modal = document.getElementById("id01");
@@ -45,6 +45,7 @@ window.onclick = function(event) {
     }
 }
 
+//does the work of signing in or creating an account
 loginButton.onclick = function (e) {
   console.log(null != auth.currentUser.email);
   if (null == auth.currentUser.email){
@@ -100,18 +101,17 @@ loginButton.onclick = function (e) {
     loginButton.innerHTML = "Change Accounts"
   }
 }
+
+//changes the login appearance if the user is already logged in
 onAuthStateChanged(auth, (user) => {
   if (user) {
-    // User is signed in, see docs for a list of available properties
-    // https://firebase.google.com/docs/reference/js/firebase.User
+    // User is signed in
     const uid = user.uid;
     onLoadLogin();
-  } else {
-    // User is signed out
-    // ...
-  }
+  } 
 });
 
+//loads the correct format if the user is signed in
 function onLoadLogin(){
   //await auth;
   console.log(auth.currentUser);
@@ -122,24 +122,3 @@ function onLoadLogin(){
   }
 }
 
-/*
-  //read input from email box
-  var email = document.getElementById("retrieveLogin").elements[0].value;
-  //read input from password box
-  var psw = document.getElementById("retrieveLogin").elements[1].value;
-
-  if(email.match([^@]+@[^@]+\.[^@]+)) {
-    //valid email
-    getAuth().getUserByEmail(email)
-    .then((userRecord) => {
-    // See the UserRecord reference doc for the contents of userRecord.
-      alert("Successfully fetched user data");
-    })
-    .catch((error) => {
-      alert("Error fetching user data");
-    });
-    alert("Not implemented!");
-  } else {
-    alert("This is not a valid email address.\nPlease enter a valid email and try again.");
-  }
-*/
