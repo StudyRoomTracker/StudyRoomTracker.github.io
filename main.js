@@ -1,7 +1,6 @@
 import { initializeApp} from "https://www.gstatic.com/firebasejs/9.9.1/firebase-app.js";
-//import { collection, doc, setDoc, getDocs, getDoc, onSnapshot, getFirestore,  QuerySnapshot } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-firestore.js"; 
+import { collection, doc, setDoc, getDocs, getDoc, onSnapshot, getFirestore,  QuerySnapshot } from "https://www.gstatic.com/firebasejs/9.9.1/firebase-firestore.js"; 
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged} from 'https://www.gstatic.com/firebasejs/9.9.1/firebase-auth.js'
-//import { getAuth } from 'https://www.gstatic.com/firebasejs/9.9.1/firebase-auth.js'
 
 
 // TODO: Replace the following with your app's Firebase project configuration
@@ -16,8 +15,16 @@ export const firebaseConfig = {
   measurementId: "G-ST790R47GE"
 };
 
+async function setUserDoc(email) {
+  const docData = {
+    admin: false,
+    room: "none"
+  };
+  await setDoc(doc(db, "users", email), docData);
+}
+
 const app = initializeApp(firebaseConfig);
-//const db = getFirestore(app);
+const db = getFirestore(app);
 
 //get all of the html elements
 var selectedRoom = null;
@@ -63,6 +70,7 @@ loginButton.onclick = function (e) {
     .then((userCredential) => {
       const user = userCredential.user;
       console.log("signed in", user.email, user.displayName);
+      modal.style.display = "none";
       return;
     })
     .catch((error) => {
@@ -106,6 +114,25 @@ onAuthStateChanged(auth, (user) => {
     // User is signed in
     const uid = user.uid;
     onLoadLogin();
+
+      //FIRESTORE integration (user data)
+      //confirm that getDoc for user works
+      //if somehow not there, add entry for this user
+      //(also will help with accounts made before this was implemented)
+      // WORKS
+
+    getDoc(doc(db, "users", auth.currentUser.email)).then(docSnap => {
+      if (docSnap.exists()) {
+        console.log("Document already exists!");
+      } else {
+        console.log("No such document!");
+        setUserDoc(auth.currentUser.email);
+        console.log("Such document now exists!");
+      }
+    })
+
+    sessionStorage.setItem("email", auth.currentUser.email);
+
   } 
 });
 

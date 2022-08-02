@@ -29,6 +29,7 @@ class Room {
       this.data["time"]["nanoseconds"] = Date.now() % 1000;
       this.data["occupied"] = true;
       await setDoc(doc(this.DB, this.floor, this.ID), this.data); 
+      setUserRoom(this.ID);
     }
   }
 
@@ -37,8 +38,17 @@ class Room {
     if (this.data["occupied"] == true){
       this.data["occupied"] = false;
       await setDoc(doc(this.DB, this.floor, this.ID), this.data); 
+      setUserRoom("none");
     }
   }
+}
+
+async function setUserRoom(newLoc) {
+  const docData = {
+    admin: false,
+    room: newLoc
+  };
+  await setDoc(doc(db, "users", sessionStorage.getItem("email")), docData);
 }
 
 // TODO: Replace the following with your app's Firebase project configuration
@@ -162,6 +172,8 @@ function reload(){
 
   if (selectedRoom != null){
     drawSelectedRoom();
+  } else {
+    button.style.visibility = "hidden";
   }
 }
 
@@ -226,17 +238,34 @@ function drawSelectedRoom(){
 
   infoDisplay.innerHTML = "Room Number: " + selectedRoom.ID + "<br>" + "Status: " + status + "<br>" + canUse;
 
-  
-  if (selectedRoom.data.occupied){
-    button.style.background = "rgb(255,0,0)";
-    button.innerHTML = "Unoccupy";
+  if (!(selectedRoom.data.available)){
+    button.style.visibility = "hidden";
   } else {
-    button.style.background = "rgb(0,255,0)";
-    button.innerHTML = "Occupy";
-  }
-
-  if (selectedRoom.data.available){
-    button.style.visibility = "visible";
+    if (selectedRoom.data.occupied){
+      button.style.background = "rgb(255,0,0)";
+      button.innerHTML = "Unoccupy";
+      getDoc(doc(db, "users", sessionStorage.getItem("email"))).then(docSnap => {
+        //TODO: give Admin users access regardless of their current room
+        console.log(selectedRoom.data.ID, ": Unoccupy");
+        if(docSnap.data()["room"] === selectedRoom.data.ID) {
+          button.style.visibility = "visible";
+        } else {
+          button.style.visibility = "hidden";
+        }
+      })
+    } else {
+      button.style.background = "rgb(0,255,0)";
+      button.innerHTML = "Occupy";
+      getDoc(doc(db, "users", sessionStorage.getItem("email"))).then(docSnap => {
+        //TODO: give Admin users access regardless of their current room
+        console.log(selectedRoom.data.ID, ": Occupy");
+        if(docSnap.data()["room"] == "none") {
+          button.style.visibility = "visible";
+        } else {
+          button.style.visibility = "hidden";
+        }
+      })
+    }
   }
 }
 //the mouse selects the room
@@ -288,5 +317,9 @@ button.onclick = function () {
 }
 
 
+var intervalID = window.setInterval(myCallback, 10);
 
+function myCallback() {
+  reload();
+}
 
