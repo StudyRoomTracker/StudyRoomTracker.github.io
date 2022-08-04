@@ -198,7 +198,7 @@ input[type=text], input[type=password] {
   background-color: #04AA6D;
   color: white;
   padding: 14px 20px;
-  margin: auto + 300px;
+  margin: 300px
   border: none;
   cursor: pointer;
   width: 10%;
