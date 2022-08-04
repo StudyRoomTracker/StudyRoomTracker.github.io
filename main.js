@@ -165,7 +165,7 @@ function onLoadLogin(){
 //    - should display which room is available and set timer, if timer finishes in 5 mins then next person on queue notified
 //    - need to move queue up (decrement position variable for all in queue and remove head somehow)
 
-joinQueue.onclick = function (e) {
+joinQueue.onclick = function (a) {
   //user must be signed in to join queue
   //if (null != auth.currentUser){
     //calculates size of queue
@@ -176,6 +176,7 @@ joinQueue.onclick = function (e) {
     //await setDoc(doc(db, "queue", auth.currentUser.email)){
       //position: size - 1;
     //}
+    console.log("called");
     joinedMessage.innerHTML = "You have successfully joined the queue!" <br> "Your position: " + size - 1;
   //}
 }
