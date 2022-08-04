@@ -202,7 +202,6 @@ input[type=text], input[type=password] {
   border: none;
   cursor: pointer;
   width: 10%;
-  margin-right: 50px;
   margin-left: 300px;
 }
 
