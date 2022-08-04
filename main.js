@@ -31,8 +31,6 @@ var selectedRoom = null;
 
 var modal = document.getElementById("id01");
 
-var queueModal = document.getElementById("queue");
-
 var loginButton = document.getElementById("submitLogin");
 
 var emailInput = document.getElementById("einput");
@@ -51,9 +49,6 @@ const auth = getAuth(app);
 window.onclick = function(event) {
     if (event.target == modal) {
         modal.style.display = "none";
-    }
-    else if(event.target == queueModal){
-      queueModal.style.display = "none";
     }
 }
 
