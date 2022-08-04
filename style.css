@@ -203,6 +203,7 @@ input[type=text], input[type=password] {
   cursor: pointer;
   width: 10%;
   position: relative;
+  left: 50px;
 }
 
 /* Set a style for all buttons */
