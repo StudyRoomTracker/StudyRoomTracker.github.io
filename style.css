@@ -206,30 +206,6 @@ input[type=text], input[type=password] {
   left: 300px;
 }
 
-.join {
-  background-color: #04AA6D;
-  color: white;
-  padding: 14px 20px;
-  margin: 8px 8px;
-  border: none;
-  cursor: pointer;
-  width: 10%;
-  position: relative;
-  left: 300px;
-}
-
-.dontjoin {
-  background-color: #f44336;
-  color: white;
-  padding: 14px 20px;
-  margin: 8px 8px;
-  border: none;
-  cursor: pointer;
-  width: 10%;
-  position: relative;
-  left: 300px;
-}
-
 /* Set a style for all buttons */
 
 .loginbtn {
