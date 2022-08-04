@@ -205,6 +205,10 @@ input[type=text], input[type=password] {
   margin-left: 625px;
 }
 
+.queuebtn:hover {
+  background-color: #649464;
+}
+
 /* Set a style for all buttons */
 
 .loginbtn {
