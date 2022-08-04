@@ -49,8 +49,11 @@ const auth = getAuth(app);
 
 // When the user clicks anywhere outside of the modal, close it
 window.onclick = function(event) {
-    if (event.target == modal || event.target == queueModal) {
+    if (event.target == modal) {
         modal.style.display = "none";
+    }
+    else if(event.target == queueModal){
+      queueModal.style.display = "none";
     }
 }
 
