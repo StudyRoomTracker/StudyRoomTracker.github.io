@@ -202,6 +202,8 @@ input[type=text], input[type=password] {
   border: none;
   cursor: pointer;
   width: 10%;
+  position: relative;
+  left: 150px;
 }
 
 /* Set a style for all buttons */
@@ -214,8 +216,6 @@ input[type=text], input[type=password] {
   border: none;
   cursor: pointer;
   width: 10%;
-  position: relative;
-  left: 80px;
 }
 
 .loginbtn:hover {
