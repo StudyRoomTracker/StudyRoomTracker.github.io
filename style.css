@@ -202,8 +202,8 @@ input[type=text], input[type=password] {
   border: none;
   cursor: pointer;
   width: 10%;
-  position: relative;
-  right: 100px;
+  position: absolute;
+  left: 300%;
 }
 
 /* Set a style for all buttons */
