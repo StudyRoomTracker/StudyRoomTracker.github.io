@@ -1,5 +1,5 @@
 import { initializeApp} from "https://www.gstatic.com/firebasejs/9.9.1/firebase-app.js";
-import { collection, doc, setDoc, getDocs, getDoc, onSnapshot, getFirestore,  QuerySnapshot } from "https://www.gstatic.com/firebasejs/9.9.1/firebase-firestore.js"; 
+import { collection, doc, setDoc, getDocs, getDoc, onSnapshot, getFirestore,  QuerySnapshot } from "https://www.gstatic.com/firebasejs/9.9.1/firebase-firestore.js";
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged} from 'https://www.gstatic.com/firebasejs/9.9.1/firebase-auth.js'
 
 
@@ -31,6 +31,8 @@ var selectedRoom = null;
 
 var modal = document.getElementById("id01");
 
+var queueModal = document.getElementById("queue");
+
 var loginButton = document.getElementById("submitLogin");
 
 var emailInput = document.getElementById("einput");
@@ -47,7 +49,7 @@ const auth = getAuth(app);
 
 // When the user clicks anywhere outside of the modal, close it
 window.onclick = function(event) {
-    if (event.target == modal) {
+    if (event.target == modal || event.target == queueModal) {
         modal.style.display = "none";
     }
 }
@@ -96,7 +98,7 @@ loginButton.onclick = function (e) {
             passwordDescription.innerHTML = "Password must at least 6 characters long";
           }
         });
-      } 
+      }
 
     });
   }
@@ -133,7 +135,7 @@ onAuthStateChanged(auth, (user) => {
 
     sessionStorage.setItem("email", auth.currentUser.email);
 
-  } 
+  }
 });
 
 //loads the correct format if the user is signed in
@@ -146,4 +148,3 @@ function onLoadLogin(){
     loginButton.innerHTML = "Change Accounts"
   }
 }
-
