@@ -198,10 +198,12 @@ input[type=text], input[type=password] {
   background-color: #04AA6D;
   color: white;
   padding: 14px 20px;
-  margin: 300px
+  margin: 8px 8px;
   border: none;
   cursor: pointer;
   width: 10%;
+  position: relative;
+  left: 300%;
 }
 
 /* Set a style for all buttons */
