@@ -194,6 +194,16 @@ input[type=text], input[type=password] {
   box-sizing: border-box;
 }
 
+.queuebtn {
+  background-color: #04AA6D;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 8px;
+  border: none;
+  cursor: pointer;
+  width: 10%;
+}
+
 /* Set a style for all buttons */
 
 .loginbtn {

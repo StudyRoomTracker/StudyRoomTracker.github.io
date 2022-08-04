@@ -18,7 +18,7 @@
     <script defer src="/__/firebase/9.8.4/firebase-analytics-compat.js"></script>
     <script defer src="/__/firebase/9.8.4/firebase-remote-config-compat.js"></script>
     <script defer src="/__/firebase/9.8.4/firebase-performance-compat.js"></script>
-    <!-- 
+    <!--
       initialize the SDK after all desired features are loaded, set useEmulator to false
       to avoid connecting the SDK to running emulators.
     -->
@@ -37,6 +37,9 @@
 		  <li class="logo"><a href="../">Study Room Tracker &#128526</a></li>
 		  <li class="logo" style="margin:auto;"><a href ="../hours">Hours</a></li>
     </div>
+            <button id = "joinQueue" onclick="document.getElementById('id01').style.display='block'" style="width:auto;" class="queuebtn">Join Queue</button>
+            
+    </div>
             <button id = "mainLogin" onclick="document.getElementById('id01').style.display='block'" style="width:auto;" class="loginbtn">Login</button>
 
     <div id="id01" class="modal">
@@ -50,7 +53,7 @@
           <label for="psw"><b>Password (must be at least 6 characters)</b></label>
           <p id = "passwordDescription" style="color:red"></p>
           <input id = "pinput" type="password" placeholder="Enter Password" name="psw" required>
-          
+
           <button id="submitLogin" class="loginbtn" style="width:100px">Login</button> <!-- change to "button" and call js function -->
 
           <button type="button" onclick="document.getElementById('id01').style.display='none'" class="loginbtn" style="background-color: #f44336; width: 100px">Cancel</button>
@@ -58,7 +61,7 @@
     </div>
       </div>
     </nav>
-	
+
 	<div class = "sidenav">
 		<div class = "menu2"> <br>
 			<a href="../floor1">Floor 1</a> <br>
@@ -67,8 +70,8 @@
 			<a href="../floor4">Floor 4</a> <br>
 		</div>
 	</div>
-    
-	<div, class = "centered"> 
+
+	<div, class = "centered">
 		<img src = "logo-modified.png" class = "bigLogo"> <br>
 		<p style="font-size: 24px;"> Securing our study rooms. Displaying their free use. </p> <br>
 		<h1> <u> About Us </u> <h1> <br>
