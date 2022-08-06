@@ -167,7 +167,8 @@ function onLoadLogin(){
 
 joinQueue.onclick = function (evnt) {
   //user must be signed in to join queue
-  //if (null != auth.currentUser){
+  if (null != auth.currentUser){
+    console.log("called");
     //calculates size of queue
     //dc.collection("queue").get().then(snap => {
       //size = snap.size;
@@ -176,7 +177,6 @@ joinQueue.onclick = function (evnt) {
     //await setDoc(doc(db, "queue", auth.currentUser.email)){
       //position: size - 1;
     //}
-    console.log("called");
     joinedMessage.innerHTML = "You have successfully joined the queue!" <br> "Your position: " + size - 1;
-  //}
+  }
 }
