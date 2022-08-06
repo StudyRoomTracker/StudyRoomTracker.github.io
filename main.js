@@ -43,10 +43,6 @@ var signInMessage = document.getElementById("signIn");
 
 var mainLoginButton = document.getElementById("mainLogin");
 
-var joinQueue = document.getElementById("join");
-
-var joinedMessage = document.getElementById("queryQueue");
-
 const auth = getAuth(app);
 
 // When the user clicks anywhere outside of the modal, close it
@@ -148,35 +144,5 @@ function onLoadLogin(){
     signInMessage.innerHTML = "Signed in as " + auth.currentUser.email;
     mainLoginButton.innerHTML = auth.currentUser.email;
     loginButton.innerHTML = "Change Accounts"
-  }
-}
-
-//TODO:
-// - add user to head of queue
-// - state position of user in queue
-// - only signed in users can enter queue
-
-//other queue conditions
-// - cannot occupy rooms if not head of queue (need to change functions for that)
-// - cannot join queue if rooms available (mayeb just make that a UI thing)
-//    - need to find a way to maintain number of rooms available (may need to change unoccupy/occupy functions)
-// - update position in queue and display it somewhere (maybe once on queue replace button with position)
-// - need to update when one room becomes available and notify head of queueb
-//    - should display which room is available and set timer, if timer finishes in 5 mins then next person on queue notified
-//    - need to move queue up (decrement position variable for all in queue and remove head somehow)
-
-joinQueue.onclick = function (evnt) {
-  //user must be signed in to join queue
-  if (null != auth.currentUser){
-    console.log("called");
-    //calculates size of queue
-    //dc.collection("queue").get().then(snap => {
-      //size = snap.size;
-    //})
-    //adds user to queue
-    //await setDoc(doc(db, "queue", auth.currentUser.email)){
-      //position: size - 1;
-    //}
-    joinedMessage.innerHTML = "You have successfully joined the queue!" <br> "Your position: " + size - 1;
   }
 }

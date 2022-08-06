@@ -1,5 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-app.js";
-import { collection, doc, setDoc, getDocs, getDoc, onSnapshot, getFirestore,  QuerySnapshot } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-firestore.js"; 
+import { collection, doc, setDoc, getDocs, getDoc, onSnapshot, getFirestore,  QuerySnapshot } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-firestore.js";
 // Follow this pattern to import other Firebase services
 // import { } from 'firebase/<service>';
 
@@ -7,7 +7,7 @@ import { collection, doc, setDoc, getDocs, getDoc, onSnapshot, getFirestore,  Qu
 class Room {
   contructor(_db, _ID, _floor){
     this.ID = _ID;
-    this.floor = _floor; 
+    this.floor = _floor;
     this.DB = _db
     this.data;
     const check = onSnapshot(doc(_db, _floor, _ID), (doc) => {this.data = doc.data(); reload();});
@@ -28,7 +28,7 @@ class Room {
       this.data["time"]["seconds"] = Math.round(Date.now() / 1000);
       this.data["time"]["nanoseconds"] = Date.now() % 1000;
       this.data["occupied"] = true;
-      await setDoc(doc(this.DB, this.floor, this.ID), this.data); 
+      await setDoc(doc(this.DB, this.floor, this.ID), this.data);
       setUserRoom(this.ID);
     }
   }
@@ -37,7 +37,7 @@ class Room {
     //console.log(this.data["occupied"]);
     if (this.data["occupied"] == true){
       this.data["occupied"] = false;
-      await setDoc(doc(this.DB, this.floor, this.ID), this.data); 
+      await setDoc(doc(this.DB, this.floor, this.ID), this.data);
       setUserRoom("none");
     }
   }
@@ -67,6 +67,8 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
 var floor1 = [], floor2 = [], floor3 = [], floor4 = [];
+
+var openRooms = 0;
 
 const unsub = onSnapshot(doc(db, "cities", "SF"), (doc) => {
     console.log("Current data: ", doc.data());
@@ -124,6 +126,21 @@ async function getRoomList(db, floorNumber){
   var floor = await getFloor(db, floorStr);
   floor = await idToRooms(floor, db, floorStr);
   return floor;
+}
+
+async function updateOpenRooms()
+{
+  for(int i = 1; i < 5; i++)
+  {
+    var rooms = getRoomList(db, i);
+    floor.forEach((DOC) => {
+      if(!DOC.occupied && DOC.available)
+      {
+        openRooms++;
+      }
+    });
+  }
+  return void;
 }
 
 // //console.log(JSON.stringify(floor1));
@@ -198,7 +215,7 @@ canvas.onmousedown = function (e) {
     infoDisplay.innerHTML = "Room Number: <br> Status: <br>";
     button.style.visibility = "hidden";
 };
-//display the status of a room 
+//display the status of a room
 function drawSelectedRoom(){
   ctx.beginPath();
   ctx.lineWidth = "2";
@@ -235,7 +252,7 @@ function drawSelectedRoom(){
 
   infoDisplay.innerHTML = "Room Number: " + selectedRoom.ID + "<br>" + "Status: " + status + "<br>" + canUse;
 
-  
+
   if (selectedRoom.data.occupied){
     button.style.background = "rgb(255,0,0)";
     button.innerHTML = "Unoccupy";
@@ -300,10 +317,20 @@ canvas.onmouseup = function (e) {
 button.onclick = function () {
   if (selectedRoom.data.occupied){
     selectedRoom.unoccupy();
+    openRooms++;
+    if(openRooms == 1 && inQueue > 0)//ADD THISSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS (and disable queue if necessary)
+    {
+
+    }
     button.style.background = "rgb(0,255,0)";
     button.innerHTML = "Occupy";
   } else {
     selectedRoom.occupy();
+    openRooms--;
+    if(openRooms == 0)
+    {
+      enableQueue();
+    }
     button.style.background = "rgb(255,0,0)";
     button.innerHTML = "Unoccupy";
   }
@@ -316,4 +343,45 @@ function myCallback() {
   reload();
 }
 
+var joined = document.getElementById("join");
+var joinedQueue = document.getElementById("joinQueue");
 
+//TODO:
+// - add user to head of queue
+// - state position of user in queue
+// - only signed in users can enter queue
+
+//other queue conditions
+// - cannot occupy rooms if not head of queue (need to change functions for that)
+// - cannot join queue if rooms available (mayeb just make that a UI thing)
+//    - need to find a way to maintain number of rooms available (may need to change unoccupy/occupy functions)
+// - update position in queue and display it somewhere (maybe once on queue replace button with position)
+// - need to update when one room becomes available and notify head of queueb
+//    - should display which room is available and set timer, if timer finishes in 5 mins then next person on queue notified
+//    - need to move queue up (decrement position variable for all in queue and remove head somehow)
+
+joined.onclick = function () {
+  //user must be signed in to join queue
+  if (null != auth.currentUser){
+    console.log("called");
+    //calculates size of queue
+    //dc.collection("queue").get().then(snap => {
+      //size = snap.size;
+    //})
+    //adds user to queue
+    //await setDoc(doc(db, "queue", auth.currentUser.email)){
+      //position: size - 1;
+    //}
+    joinedMessage.innerHTML = "You have successfully joined the queue!" <br> "Your position: " + size - 1;
+  }
+}
+
+function enableQueue()
+{
+  joinQueue.style.display = "none";//CHANGE THIS
+}
+
+function disableQueue()
+{
+
+}
