@@ -149,6 +149,8 @@ function onLoadLogin(){
 
 var joined = document.getElementById("join");
 
+console.log(joined);
+
 joined.onclick = function (e) {//FIGURE OUT HOW TO GET ACCOUNT
   console.log("join/leave called");
   //user must be signed in to join queue
