@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Floor 2 | RPI Study Room Tracker</title>
+    <title>FAQ | RPI Study Room Tracker</title>
     <link rel="ICON" href="../logo-modified.png" type="image/x-icon" />
 
     <!-- update the version number as needed -->
@@ -25,7 +25,6 @@
     <script defer src="/__/firebase/init.js?useEmulator=true"></script>
 
     <link rel="stylesheet" href="../style.css">
-
   </head>
   <body>
 
@@ -38,10 +37,10 @@
 		  <li class="logo" style="margin:auto;"><a href ="../hours">Hours</a></li>
 		  <li class="logo" style="margin:auto;"><a href ="../faq">FAQ</a></li>
       </div>
-      <button id = "mainLogin" onclick="document.getElementById('id01').style.display='block'" style="width:auto;" class="loginbtn">Login</button>
+      <button id="mainLogin" onclick="document.getElementById('id01').style.display='block'" style="width:auto;" class="loginbtn">Login</button>
 
-    <div id="id01" class="modal">
-      <!-- display login -->
+      <div id="id01" class="modal">
+
       <div id="retrieveLogin" class="modal-content animate">
           <p id = "signIn"></p>
           <label for="email"><b>Email</b></label>
@@ -63,31 +62,25 @@
 	<div class = "sidenav">
 		<div class = "menu2"> <br>
 			<a href="../floor1">Floor 1</a> <br>
-			<a href="../floor2" class="active">Floor 2</a> <br>
+			<a href="../floor2">Floor 2</a> <br>
 			<a href="../floor3">Floor 3</a> <br>
 			<a href="../floor4">Floor 4</a> <br>
 		</div>
 	</div>
-  <!-- display floor2 page -->
-  <div style="display:none;">
-    <img id="source"
-         src="wireless_folsom2.png"
-         width=684 height=393>
-  </div>
-    <div class="center">
-      <canvas id = "mycanvas" width=684 height=393 > </canvas>
-      <div style="width:20vw;">
-        <!-- display room number and status -->
-        <p id = "info"> Room Number: <br> Status: <br></p>
-        <button id="button" style="visibility: hidden;"></button>
-        <!-- display compass -->
-        <img id="source" src="../compass.jpg" style="width:220px; height:200px; float:left;">
-      </div>
-    </div>
+	
+	<div class="centered" style="width:70vw;">
+		<h style="font-size:50px;">Frequently Asked Questions</h> <br>
+		<p style="font-weight:bold;text-align:left;">How do I occupy a room?<p>
+		<p style="text-align:left;">&emsp;You have to log in before being able to occupy a room. When logged in, navigate to a floor and click on a room with a green outline. A button should appear, and click on that. One user can only occupy one room at a single time.<p> <br>
+		<p style="font-weight:bold;text-align:left;">How do I unoccupy a room?<p>
+		<p style="text-align:left;">&emsp;You can only unoccupy a room you occupied previously (with that account). If you forget to unoccupy, the room you occupied will be automatically unoccupied after 2 hours of inactivity.<p> <br>
+		<p style="font-weight:bold;text-align:left;">How do I log in?<p>
+		<p style="text-align:left;">&emsp;Click the green "Login" button at the top right of the screen. On the popup, type in a valid username (x@y.z) and a password and click the login button. To switch accounts, click the green button again and do the process again.<p> <br>
+		<p style="font-weight:bold;text-align:left;">What am I looking at on a floor page?<p>
+		<p style="text-align:left;">&emsp;On any of the floor pages there is a floor plan of the respective floor. Study rooms are outlined with red or green to indicate their availability. When a room is occupied (or unavailable) it will be red; when it is available it will be green.<p> <br>
+	</div>
 
-    <script type="module" src = "app.js"></script>
-    <script type="module" src="../main.js"></script>
-  </body>
+    <script type="module" src = "../main.js"></script>
 
   </body>
 </html>
