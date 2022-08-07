@@ -41,7 +41,7 @@
             <div id="queue" class="modal" >
               <div id="addToQueue" class="modal-content animate" style = "width:18%;">
                 <p id = "queueQuery"></p>
-                <p><b>Would you like to join the queue?</b></p>
+                <p id = "joinAsk"><b>Would you like to join the queue?</b></p>
 
                 <button id = "join" class="queuebtn" style="left: 0px; margin: 10px 8px; width: 100px">Yes</button>
                 <button id = "refuse" onclick="document.getElementById('queue').style.display='none'" class="queuebtn" style="background-color: #f44336; left: 0px; margin: 10px 8px; width:100px">No</button>
@@ -67,6 +67,13 @@
           <button type="button" onclick="document.getElementById('id01').style.display='none'" class="loginbtn" style="background-color: #f44336; width: 100px">Cancel</button>
       </div>
     </div>
+
+    <div id = "roomAvailable" class = "modal">
+      <p id = "roomAvailableMessage"><b>A room is now available: </b></p>
+          <button id = "occupyRoom" class="queuebtn" style="left: 0px; margin: 10px 8px; width: 100px">Occupy Room</button>
+    </div>
+
+  </div>
 
     </nav>
 

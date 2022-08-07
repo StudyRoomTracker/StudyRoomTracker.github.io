@@ -55,7 +55,7 @@ window.onclick = function(event) {
 //does the work of signing in or creating an account
 loginButton.onclick = function (e) {
   //console.log(null != auth.currentUser.email);
-  console.log("called");
+  //console.log("called");
   emailDescription.innerHTML ="";
   passwordDescription.innerHTML ="";
 
