@@ -330,11 +330,11 @@ button.onclick = function () {
     {
       if(inQueue == 0)
       {
-        disableQueue();
+        //disableQueue();
       }
       else if(inQueue > 0)
       {
-        updateQueue();
+        //updateQueue();
       }
     }
     button.style.background = "rgb(0,255,0)";
@@ -344,7 +344,7 @@ button.onclick = function () {
     openRooms--;
     if(openRooms == 0)
     {
-      enableQueue();
+      //enableQueue();
     }
     button.style.background = "rgb(255,0,0)";
     button.innerHTML = "Unoccupy";
@@ -375,8 +375,8 @@ var joinedMessage = document.getElementById("joinAsk");
 //    - need to move queue up (decrement position variable for all in queue and remove head somehow)
 
 //changes the join queue button to leave queue button
-joined.onclick = function () {//FIGURE OUT HOW TO GET ACCOUNT
-  console.log("join/leave called");
+//joined.onclick = function () {//FIGURE OUT HOW TO GET ACCOUNT
+  //console.log("join/leave called");
   //user must be signed in to join queue
   //if (openRooms <= 0 && null != auth.currentUser){
     //if user on queue and wants to leave
@@ -416,7 +416,7 @@ joined.onclick = function () {//FIGURE OUT HOW TO GET ACCOUNT
       //document.getElementById("queue").style.display='none'; //may need to delay somehow?
     //}
   //}
-}
+//}
 
 //shows the queue button so users may join
 //async function enableQueue()

@@ -146,3 +146,48 @@ function onLoadLogin(){
     loginButton.innerHTML = "Change Accounts"
   }
 }
+
+var joined = document.getElementById("join");
+
+joined.onclick = function () {//FIGURE OUT HOW TO GET ACCOUNT
+  console.log("join/leave called");
+  //user must be signed in to join queue
+  //if (openRooms <= 0 && null != auth.currentUser){
+    //if user on queue and wants to leave
+    //if(queuePos >= 0)//need better way to keep track of queue position,
+    //will not update queuePos if someone leaves queue, need to access position in queue via user's acc
+    //{
+      //var extras = await getDocs(collection(db,"queue"));
+      //extras.forEach((DOC) =>
+      //{
+        //remove user from queue
+        //if(DOC.position == queuePos)
+        //{
+          //await deleteDoc(DOC);
+        //}
+        //update queue positions after removed user
+        //else if(DOC.position > queuePos)
+        //{
+          //var currentPosition = DOC.position;
+          //await setDoc(DOC, {position : currentPosition--;});
+        //}
+      //});
+      //onQueue--;
+      //queuePos = -1;
+    //}
+    //else
+    //{
+      //adds user to queue
+      //await setDoc(doc(db, "queue", auth.currentUser.email)){
+        //position: onQueue;
+      //}
+      //queuePos = onQueue;
+      //onQueue++;
+      //joinedMessage.innerHTML = "You have successfully joined the queue!" <br> "Your position: " + onQueue;
+      //changes join queue to leave queue
+      //joinedQueue.innerHTML = "Leave Queue";
+      //closes pop up
+      //document.getElementById("queue").style.display='none'; //may need to delay somehow?
+    //}
+  //}
+}
