@@ -149,7 +149,7 @@ function onLoadLogin(){
 
 var joined = document.getElementById("join");
 
-joined.onclick = function () {//FIGURE OUT HOW TO GET ACCOUNT
+joined.onclick = function (e) {//FIGURE OUT HOW TO GET ACCOUNT
   console.log("join/leave called");
   //user must be signed in to join queue
   //if (openRooms <= 0 && null != auth.currentUser){
