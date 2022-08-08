@@ -41,7 +41,7 @@ class Room {
         const unreserve = {
           room: "none"
         };
-        await setDoc(doc(db, "users", this.data["user"]), unreserve);
+        await setDoc(doc(db, "users", this.data["user"]), unreserve, { merge: true });
       }
       this.data["occupied"] = false;
       this.data["user"] = "none";
