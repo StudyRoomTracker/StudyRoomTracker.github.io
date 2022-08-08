@@ -130,7 +130,7 @@ onAuthStateChanged(auth, (user) => {
         console.log("Such document now exists!");
       }
 
-      if(docSnap.data()["admin"] === "true") {
+      if(docSnap.data()["admin"] === "true" || docSnap.data()["admin"] == true) {
         sessionStorage.setItem("isAdmin", true);
       } else {
         sessionStorage.setItem("isAdmin", false);
