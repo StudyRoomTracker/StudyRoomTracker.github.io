@@ -32,10 +32,10 @@ class Room {
     }
   }
   //display if the the room is unoccupied
-  async unoccupy(){
+  async unoccupy(timeout){
     //console.log(this.data["occupied"]);
     if (this.data["occupied"] == true){
-      if(sessionStorage.getItem("isAdmin") === "true") {
+      if(sessionStorage.getItem("isAdmin") === "true" || timeout) {
         const unreserve = {
           room: "none"
         };
@@ -153,7 +153,7 @@ function reload(){
 
   for (var i = 0; i < floor1.length; i++){
     if (Math.round(Date.now() / 1000) - floor1[i].data["time"]["seconds"] >= 7200){
-      floor1[i].unoccupy();
+      floor1[i].unoccupy(true);
     }
     ctx.beginPath();
     ctx.lineWidth = "4";
@@ -300,7 +300,7 @@ canvas.onmouseup = function (e) {
 //click on the button to occupy or unoccupy room
 button.onclick = function () {
   if (selectedRoom.data.occupied){
-    selectedRoom.unoccupy();
+    selectedRoom.unoccupy(false);
     button.style.background = "rgb(0,255,0)";
     button.innerHTML = "Occupy";
   } else {
