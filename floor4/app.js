@@ -28,6 +28,7 @@ class Room {
       this.data["time"]["seconds"] = Math.round(Date.now() / 1000);
       this.data["time"]["nanoseconds"] = Date.now() % 1000;
       this.data["occupied"] = true;
+      this.data["user"] = sessionStorage.getItem("email");
       await setDoc(doc(this.DB, this.floor, this.ID), this.data); 
       setUserRoom(this.ID);
     }
@@ -36,7 +37,14 @@ class Room {
   async unoccupy(){
     //console.log(this.data["occupied"]);
     if (this.data["occupied"] == true){
+      if(sessionStorage.getItem("isAdmin") === "true") {
+        const unreserve = {
+          room: "none"
+        };
+        await setDoc(doc(db, "users", this.data["user"]), unreserve);
+      }
       this.data["occupied"] = false;
+      this.data["user"] = "none";
       await setDoc(doc(this.DB, this.floor, this.ID), this.data); 
       setUserRoom("none");
     }
@@ -45,7 +53,7 @@ class Room {
 
 async function setUserRoom(newLoc) {
   const docData = {
-    admin: false,
+    admin: sessionStorage.getItem("isAdmin"),
     room: newLoc
   };
   await setDoc(doc(db, "users", sessionStorage.getItem("email")), docData);
@@ -246,8 +254,8 @@ function drawSelectedRoom(){
       button.innerHTML = "Unoccupy";
       getDoc(doc(db, "users", sessionStorage.getItem("email"))).then(docSnap => {
         //TODO: give Admin users access regardless of their current room
-        console.log(selectedRoom.data.ID, ": Unoccupy");
-        if(docSnap.data()["room"] === selectedRoom.data.ID) {
+        //console.log(selectedRoom.data.ID, ": Unoccupy");
+        if(sessionStorage.getItem("isAdmin") === "true" || docSnap.data()["room"] === selectedRoom.data.ID) {
           button.style.visibility = "visible";
         } else {
           button.style.visibility = "hidden";
@@ -258,8 +266,8 @@ function drawSelectedRoom(){
       button.innerHTML = "Occupy";
       getDoc(doc(db, "users", sessionStorage.getItem("email"))).then(docSnap => {
         //TODO: give Admin users access regardless of their current room
-        console.log(selectedRoom.data.ID, ": Occupy");
-        if(docSnap.data()["room"] == "none") {
+        //console.log(selectedRoom.data.ID, ": Occupy");
+        if(sessionStorage.getItem("isAdmin") === "true" || docSnap.data()["room"] == "none") {
           button.style.visibility = "visible";
         } else {
           button.style.visibility = "hidden";

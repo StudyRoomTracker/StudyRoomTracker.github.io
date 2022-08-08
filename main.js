@@ -129,6 +129,12 @@ onAuthStateChanged(auth, (user) => {
         setUserDoc(auth.currentUser.email);
         console.log("Such document now exists!");
       }
+
+      if(docSnap.data()["admin"] === "true") {
+        sessionStorage.setItem("isAdmin", true);
+      } else {
+        sessionStorage.setItem("isAdmin", false);
+      }
     })
 
     sessionStorage.setItem("email", auth.currentUser.email);
