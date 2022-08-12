@@ -379,21 +379,3 @@ async function removeUser()
     });
     queuePos = -1;
 }
-
-
-//TODO:
-// - add user to head of queue (DONE)
-// - only signed in users can enter queue (DONE)
-
-//other queue conditions
-// - cannot occupy rooms if not head of queue (need to change functions for that)
-// - cannot join queue if rooms available (DONE)
-// - need to update when one room becomes available and notify head of queue (DONE?)
-//    - should display which room is available and set timer, if timer finishes in 5 mins then next person on queue notified
-//    - need to move queue up (decrement position variable for all in queue and remove head somehow)
-
-//NEED FUNCTIONS FOR:
-//checking if any rooms available, returns first available room or null (?) otherwise
-//updating user's position on queue
-//queue enabled/disabled
-//updating how many people on queue
