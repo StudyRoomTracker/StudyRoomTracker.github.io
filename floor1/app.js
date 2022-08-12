@@ -28,15 +28,23 @@ class Room {
       this.data["time"]["seconds"] = Math.round(Date.now() / 1000);
       this.data["time"]["nanoseconds"] = Date.now() % 1000;
       this.data["occupied"] = true;
+      this.data["user"] = sessionStorage.getItem("email");
       await setDoc(doc(this.DB, this.floor, this.ID), this.data);
       setUserRoom(this.ID);
     }
   }
 //display if the the room is unoccupied
-  async unoccupy(){
+  async unoccupy(timeout){
     //console.log(this.data["occupied"]);
     if (this.data["occupied"] == true){
+      if(sessionStorage.getItem("isAdmin") === "true" || timeout) {
+        const unreserve = {
+          room: "none"
+        };
+        await setDoc(doc(db, "users", this.data["user"]), unreserve, { merge: true });
+      }
       this.data["occupied"] = false;
+      this.data["user"] = "none";
       await setDoc(doc(this.DB, this.floor, this.ID), this.data);
       setUserRoom("none");
     }
@@ -45,7 +53,7 @@ class Room {
 
 async function setUserRoom(newLoc) {
   const docData = {
-    admin: false,
+    admin: sessionStorage.getItem("isAdmin"),
     room: newLoc
   };
   await setDoc(doc(db, "users", sessionStorage.getItem("email")), docData);
@@ -156,7 +164,7 @@ function reload(){
 
   for (var i = 0; i < floor1.length; i++){
     if (Math.round(Date.now() / 1000) - floor1[i].data["time"]["seconds"] >= 7200){
-      floor1[i].unoccupy();
+      floor1[i].unoccupy(true);
     }
     ctx.beginPath();
     ctx.lineWidth = "4";
@@ -243,8 +251,8 @@ function drawSelectedRoom(){
     button.innerHTML = "Unoccupy";
     getDoc(doc(db, "users", sessionStorage.getItem("email"))).then(docSnap => {
       //TODO: give Admin users access regardless of their current room
-      console.log(docSnap.data()["room"] === selectedRoom.data.ID);
-      if(docSnap.data()["room"] === selectedRoom.data.ID) {
+      //console.log(docSnap.data()["room"] === selectedRoom.data.ID);
+      if(sessionStorage.getItem("isAdmin") === "true" || docSnap.data()["room"] === selectedRoom.data.ID) {
         button.style.visibility = "visible";
       } else {
         button.style.visibility = "hidden";
@@ -255,7 +263,7 @@ function drawSelectedRoom(){
     button.innerHTML = "Occupy";
     getDoc(doc(db, "users", sessionStorage.getItem("email"))).then(docSnap => {
       //TODO: give Admin users access regardless of their current room
-      if(docSnap.data()["room"] == "none") {
+      if(sessionStorage.getItem("isAdmin") === "true" || docSnap.data()["room"] === "none") {
         button.style.visibility = "visible";
       } else {
         button.style.visibility = "hidden";
@@ -301,7 +309,7 @@ canvas.onmouseup = function (e) {
 //click on the button to occupy or unoccupy room
 button.onclick = function () {
   if (selectedRoom.data.occupied){
-    selectedRoom.unoccupy();
+    selectedRoom.unoccupy(false);
     button.style.background = "rgb(0,255,0)";
     button.innerHTML = "Occupy";
   } else {
