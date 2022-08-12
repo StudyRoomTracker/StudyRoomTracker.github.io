@@ -20,6 +20,19 @@
 		  <li class="logo" style="margin:auto;"><a href ="../hours">Hours</a></li>
 		  <li class="logo" style="margin:auto;"><a href ="../faq">FAQ</a></li>
       </div>
+
+      <button id = "joinQueue" onclick="document.getElementById('queue').style.display='block'" style="width:auto;" class="queuebtn">Join Queue</button>
+      <div id="queue" class="modal" >
+        <div id="addToQueue" class="modal-content animate" style = "width:18%;">
+          <p id = "queueQuery"></p>
+          <p id = "joinAsk"><b>Would you like to join the queue?</b></p>
+
+          <button id = "join" class="queuebtn" style="left: 0px; margin: 10px 8px; width: 100px">Yes</button>
+          <button id = "refuse" onclick="document.getElementById('queue').style.display='none'" class="queuebtn" style="background-color: #f44336; left: 0px; margin: 10px 8px; width:100px">No</button>
+        </div>
+
+      </div>
+
       <button id = "mainLogin" onclick="document.getElementById('id01').style.display='block'" style="width:auto;" class="loginbtn">Login</button>
 
     <div id="id01" class="modal">
@@ -33,7 +46,7 @@
           <label for="psw"><b>Password (must be at least 6 characters)</b></label>
           <p id = "passwordDescription" style="color:red"></p>
           <input id = "pinput" type="password" placeholder="Enter Password" name="psw" required>
-          
+
           <button id="submitLogin" class="loginbtn" style="width:100px">Login</button> <!-- change to "button" and call js function -->
 
           <button type="button" onclick="document.getElementById('id01').style.display='none'" class="loginbtn" style="background-color: #f44336; width: 100px">Cancel</button>

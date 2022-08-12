@@ -195,7 +195,7 @@ input[type=text], input[type=password] {
 }
 
 .queuebtn {
-  display: inline;//none;
+  display: none;//inline;
   background-color: #04AA6D;
   color: white;
   padding: 14px 20px;
@@ -203,7 +203,7 @@ input[type=text], input[type=password] {
   border: none;
   cursor: pointer;
   width: 10%;
-  margin-left: 625px;
+  margin-left: 400px;
 }
 
 .queuebtn:hover {

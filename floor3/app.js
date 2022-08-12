@@ -1,5 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-app.js";
-import { collection, doc, setDoc, getDocs, getDoc, onSnapshot, getFirestore,  QuerySnapshot } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-firestore.js"; 
+import { collection, doc, setDoc, getDocs, getDoc, onSnapshot, getFirestore,  QuerySnapshot } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-firestore.js";
 // Follow this pattern to import other Firebase services
 // import { } from 'firebase/<service>';
 
@@ -26,7 +26,7 @@ class Room {
   async occupy(){
     if (this.data["occupied"] == false){
       this.data["occupied"] = true;
-      await setDoc(doc(this.DB, this.floor, this.ID), this.data); 
+      await setDoc(doc(this.DB, this.floor, this.ID), this.data);
       setUserRoom(this.ID);
     }
   }
@@ -37,7 +37,7 @@ class Room {
       this.data["time"]["seconds"] = Math.round(Date.now() / 1000);
       this.data["time"]["nanoseconds"] = Date.now() % 1000;
       this.data["occupied"] = false;
-      await setDoc(doc(this.DB, this.floor, this.ID), this.data); 
+      await setDoc(doc(this.DB, this.floor, this.ID), this.data);
       setUserRoom("none");
     }
   }
@@ -106,7 +106,7 @@ async function idToRooms(floorList, db, floor){
 
   return list;
 }
-//select floor 
+//select floor
 async function getRoomList(db, floorNumber){
   var floorStr = "";
   if (floorNumber == 1){
@@ -131,6 +131,7 @@ var infoDisplay = document.getElementById("info");
 var button = document.getElementById("button");
 
 var selectedRoom = null;
+
 
 var myImage = new Image(692, 414);
 myImage.src = "wireless_folsom3.png" ;
@@ -222,7 +223,7 @@ function drawSelectedRoom(){
   var canUse = " ";
   if (!selectedRoom.data.available){
     canUse = "Room is closed";
-  } 
+  }
   infoDisplay.innerHTML = "Room Number: " + selectedRoom.ID + "<br>" + "Status: " + status + "<br>" + canUse;
 
   if (!(selectedRoom.data.available)){
@@ -289,8 +290,10 @@ canvas.onmouseup = function (e) {
     }
     //console.log("selected room:", selectedRoom);
 };
+
 //click on the button to occupy or unoccupy room
 button.onclick = function () {
+  console.log("button clicked");
   if (selectedRoom.data.occupied){
     selectedRoom.unoccupy();
     button.style.background = "rgb(0,255,0)";
@@ -308,5 +311,3 @@ var intervalID = window.setInterval(myCallback, 10);
 function myCallback() {
   reload();
 }
-
-

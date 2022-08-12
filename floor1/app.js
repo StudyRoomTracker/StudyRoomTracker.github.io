@@ -68,10 +68,6 @@ const db = getFirestore(app);
 
 var floor1 = [], floor2 = [], floor3 = [], floor4 = [];
 
-var openRooms = 0;
-var onQueue = 0;
-var queuePos;
-
 const unsub = onSnapshot(doc(db, "cities", "SF"), (doc) => {
     console.log("Current data: ", doc.data());
 });
@@ -130,20 +126,6 @@ async function getRoomList(db, floorNumber){
   return floor;
 }
 
-async function updateOpenRooms()
-{
-  for(int i = 1; i < 5; i++)
-  {
-    var rooms = await getRoomList(db, i);
-    floor.forEach((DOC) => {
-      if(!DOC.occupied && DOC.available)
-      {
-        openRooms++;
-      }
-    });
-  }
-  return void;
-}
 
 // //console.log(JSON.stringify(floor1));
 // for (var i = 0; i < floor1.length; ++i){
@@ -166,7 +148,7 @@ myImage.src = "wireless_folsom1.png";
 ctx.drawImage(myImage,0,0);
 
 floor1 = await getRoomList(db, 1);
-updateOpenRooms();
+
 //refresh the floor page
 function reload(){
   ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -318,34 +300,12 @@ canvas.onmouseup = function (e) {
 };
 //click on the button to occupy or unoccupy room
 button.onclick = function () {
-  //cannot occupy room if not head of queue, could send some sort of message
-  if(queuePos > 0)
-  {
-    return;
-  }
   if (selectedRoom.data.occupied){
     selectedRoom.unoccupy();
-    openRooms++;
-    if(openRooms == 1)//ADD THISSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS (and disable queue if necessary)
-    {
-      if(inQueue == 0)
-      {
-        //disableQueue();
-      }
-      else if(inQueue > 0)
-      {
-        //updateQueue();
-      }
-    }
     button.style.background = "rgb(0,255,0)";
     button.innerHTML = "Occupy";
   } else {
     selectedRoom.occupy();
-    openRooms--;
-    if(openRooms == 0)
-    {
-      //enableQueue();
-    }
     button.style.background = "rgb(255,0,0)";
     button.innerHTML = "Unoccupy";
   }
@@ -357,95 +317,3 @@ var intervalID = window.setInterval(myCallback, 10);
 function myCallback() {
   reload();
 }
-
-var joined = document.getElementById("join");
-var joinedQueue = document.getElementById("joinQueue");
-var joinedMessage = document.getElementById("joinAsk");
-
-//TODO:
-// - add user to head of queue
-// - only signed in users can enter queue
-
-//other queue conditions
-// - cannot occupy rooms if not head of queue (need to change functions for that)
-// - cannot join queue if rooms available
-//    - need to find a way to maintain number of rooms available (may need to change unoccupy/occupy functions)
-// - need to update when one room becomes available and notify head of queue
-//    - should display which room is available and set timer, if timer finishes in 5 mins then next person on queue notified
-//    - need to move queue up (decrement position variable for all in queue and remove head somehow)
-
-//changes the join queue button to leave queue button
-//joined.onclick = function () {//FIGURE OUT HOW TO GET ACCOUNT
-  //console.log("join/leave called");
-  //user must be signed in to join queue
-  //if (openRooms <= 0 && null != auth.currentUser){
-    //if user on queue and wants to leave
-    //if(queuePos >= 0)//need better way to keep track of queue position,
-    //will not update queuePos if someone leaves queue, need to access position in queue via user's acc
-    //{
-      //var extras = await getDocs(collection(db,"queue"));
-      //extras.forEach((DOC) =>
-      //{
-        //remove user from queue
-        //if(DOC.position == queuePos)
-        //{
-          //await deleteDoc(DOC);
-        //}
-        //update queue positions after removed user
-        //else if(DOC.position > queuePos)
-        //{
-          //var currentPosition = DOC.position;
-          //await setDoc(DOC, {position : currentPosition--;});
-        //}
-      //});
-      //onQueue--;
-      //queuePos = -1;
-    //}
-    //else
-    //{
-      //adds user to queue
-      //await setDoc(doc(db, "queue", auth.currentUser.email)){
-        //position: onQueue;
-      //}
-      //queuePos = onQueue;
-      //onQueue++;
-      //joinedMessage.innerHTML = "You have successfully joined the queue!" <br> "Your position: " + onQueue;
-      //changes join queue to leave queue
-      //joinedQueue.innerHTML = "Leave Queue";
-      //closes pop up
-      //document.getElementById("queue").style.display='none'; //may need to delay somehow?
-    //}
-  //}
-//}
-
-//shows the queue button so users may join
-//async function enableQueue()
-//{
-  //joinQueue.style.display = "inline";
-//}
-
-//hides the queue button and removes any left over users from the queue
-//async function disableQueue()
-//{
-  //joinQueue.style.display = "none";
-  //var extras = await getDocs(collection(db,"queue"));
-  //extras.forEach((DOC) =>
-  //{
-    //await deleteDoc(DOC);
-  //});
-//}
-
-//notifies head of queue that room available, pops them from queue
-//async function updateQueue()
-//{
-  //if head of queue
-  //if(queuePos == 0)
-  //{
-
-  //}
-  //if on queue but not head, move up queue
-  //else if(queuePos > 0)
-  //{
-    //queuePos--;
-  //}
-//}
