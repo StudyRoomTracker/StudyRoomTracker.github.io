@@ -17,7 +17,7 @@ export const firebaseConfig = {
 
 async function setUserDoc(email) {
   const docData = {
-    admin: false,
+    admin: "false",
     room: "none"
   };
   await setDoc(doc(db, "users", email), docData);
@@ -113,7 +113,6 @@ onAuthStateChanged(auth, (user) => {
   if (user) {
     // User is signed in
     const uid = user.uid;
-    onLoadLogin();
 
       //FIRESTORE integration (user data)
       //confirm that getDoc for user works
@@ -131,14 +130,15 @@ onAuthStateChanged(auth, (user) => {
       }
 
       if(docSnap.data()["admin"] === "true" || docSnap.data()["admin"] == true) {
-        sessionStorage.setItem("isAdmin", true);
+        sessionStorage.setItem("isAdmin", "true");
       } else {
-        sessionStorage.setItem("isAdmin", false);
+        sessionStorage.setItem("isAdmin", "false");
       }
     })
 
     sessionStorage.setItem("email", auth.currentUser.email);
 
+    onLoadLogin();
   }
 });
 
