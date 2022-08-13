@@ -29,6 +29,7 @@ class Room {
       this.data["user"] = sessionStorage.getItem("email");
       await setDoc(doc(this.DB, this.floor, this.ID), this.data);
       setUserRoom(this.ID);
+      sessionStorage.setItem("myRoom", this.ID);
     }
   }
   //display if the the room is unoccupied
@@ -47,6 +48,7 @@ class Room {
       this.data["user"] = "none";
       await setDoc(doc(this.DB, this.floor, this.ID), this.data);
       setUserRoom("none");
+      sessionStorage.setItem("myRoom", "none");
     }
   }
 }
@@ -240,26 +242,19 @@ function drawSelectedRoom(){
     if (selectedRoom.data.occupied){
       button.style.background = "rgb(255,0,0)";
       button.innerHTML = "Unoccupy";
-      getDoc(doc(db, "users", sessionStorage.getItem("email"))).then(docSnap => {
-        //TODO: give Admin users access regardless of their current room
-        //console.log(docSnap.data()["room"] === selectedRoom.data.ID);
-        if(sessionStorage.getItem("isAdmin") === "true" || docSnap.data()["room"] === selectedRoom.data.ID) {
-          button.style.visibility = "visible";
-        } else {
-          button.style.visibility = "hidden";
-        }
-      })
+      if(sessionStorage.getItem("isAdmin") === "true" || sessionStorage.getItem("myRoom") === selectedRoom.data.ID) {
+        button.style.visibility = "visible";
+      } else {
+        button.style.visibility = "hidden";
+      }
     } else {
       button.style.background = "rgb(0,255,0)";
       button.innerHTML = "Occupy";
-      getDoc(doc(db, "users", sessionStorage.getItem("email"))).then(docSnap => {
-        //TODO: give Admin users access regardless of their current room
-        if(sessionStorage.getItem("isAdmin") === "true" || docSnap.data()["room"] == "none") {
-          button.style.visibility = "visible";
-        } else {
-          button.style.visibility = "hidden";
-        }
-      })
+      if(sessionStorage.getItem("isAdmin") === "true" || sessionStorage.getItem("myRoom") == "none") {
+        button.style.visibility = "visible";
+      } else {
+        button.style.visibility = "hidden";
+      }
     }
   }
 }

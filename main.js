@@ -123,9 +123,11 @@ onAuthStateChanged(auth, (user) => {
     getDoc(doc(db, "users", auth.currentUser.email)).then(docSnap => {
       if (docSnap.exists()) {
         console.log("Document already exists!");
+        sessionStorage.setItem("myRoom",  docSnap.data()["room"]);
       } else {
         console.log("No such document!");
         setUserDoc(auth.currentUser.email);
+        sessionStorage.setItem("myRoom", "none");
         console.log("Such document now exists!");
       }
 
@@ -137,6 +139,8 @@ onAuthStateChanged(auth, (user) => {
     })
 
     sessionStorage.setItem("email", auth.currentUser.email);
+    console.log("This is the user's currently reserved room:");
+    console.log(sessionStorage.getItem("myRoom"));
 
     onLoadLogin();
   }
