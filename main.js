@@ -1,6 +1,6 @@
 import { initializeApp} from "https://www.gstatic.com/firebasejs/9.9.1/firebase-app.js";
 import { collection, doc, setDoc, getDocs, getDoc, deleteDoc, onSnapshot, getFirestore,  QuerySnapshot } from "https://www.gstatic.com/firebasejs/9.9.1/firebase-firestore.js";
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged} from 'https://www.gstatic.com/firebasejs/9.9.1/firebase-auth.js'
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged} from 'https://www.gstatic.com/firebasejs/9.9.1/firebase-auth.js';
 
 
 // TODO: Replace the following with your app's Firebase project configuration
@@ -50,7 +50,7 @@ window.onclick = function(event) {
     if (event.target == modal) {
         modal.style.display = "none";
     }
-}
+};
 
 //does the work of signing in or creating an account
 loginButton.onclick = function (e) {
@@ -104,9 +104,9 @@ loginButton.onclick = function (e) {
   if (null != auth.currentUser){
     signInMessage.innerHTML = "Signed in as " + auth.currentUser.email;
     mainLoginButton.innerHTML = auth.currentUser.email;
-    loginButton.innerHTML = "Change Accounts"
+    loginButton.innerHTML = "Change Accounts";
   }
-}
+};
 
 //changes the login appearance if the user is already logged in
 onAuthStateChanged(auth, (user) => {
@@ -136,7 +136,7 @@ onAuthStateChanged(auth, (user) => {
       } else {
         sessionStorage.setItem("isAdmin", "false");
       }
-    })
+    });
 
     sessionStorage.setItem("email", auth.currentUser.email);
     console.log("This is the user's currently reserved room:");
@@ -153,124 +153,121 @@ function onLoadLogin(){
   if (null != auth.currentUser){
     signInMessage.innerHTML = "Signed in as " + auth.currentUser.email;
     mainLoginButton.innerHTML = auth.currentUser.email;
-    loginButton.innerHTML = "Change Accounts"
+    loginButton.innerHTML = "Change Accounts";
   }
 }
 
-//Queue functions and variables
+// Queue functions and variables
 
-var joined = document.getElementById("join");
-var joinedQueue = document.getElementById("joinQueue");
-var joinedMessage = document.getElementById("joinAsk");
-var intervalID = window.setInterval(queueCallback, 10000);
+var joined = document.getElementById( 'join' );
+var joinedQueue = document.getElementById( 'joinQueue' );
+var joinedMessage = document.getElementById( 'joinAsk' );
+var intervalID = window.setInterval( queueCallback, 10000 );
 
-//number of users on the queue, -1 if the queue is disabled
-var queueLen = 0;//-1;
-//position of current user on the queue, -1 if not on queue
+// number of users on the queue, -1 if the queue is disabled
+var queueLen = 0;
+
+// position of current user on the queue, -1 if not on queue
 var queuePos = -1;
-//true when all rooms occupied, false otherwise
+
+// true when all rooms occupied, false otherwise
 var allOccupied = false;
 
-//keeps queue stats up to date
+// keeps queue stats up to date
 async function queueCallback() {
-  console.log("queue callback called");
+  console.log( 'queue callback called' );
   var availableRoom = await updateOccupied();
-  updateQueueStatus(availableRoom);
+  updateQueueStatus( availableRoom );
 }
 
-//adds or removes user from queue if signed in
-joined.onclick = function (e) {
-  console.log("join/leave called");
-  //user must be signed in to join queue
-  if (null != auth.currentUser){
+// adds or removes user from queue if signed in
+joined.onclick = function ( e ) {
+  console.log( 'join/leave called' );
+
+  // user must be signed in to join queue
+  if ( null != auth.currentUser ){
     joinOrLeave();
+  } else {
+    console.log( 'not signed in, cant join queue' );
   }
-  else {
-    console.log("not signed in, cant join queue");
-  }
-}
+};
 
-//removes or adds user to queue
-async function joinOrLeave()
-{
-  //update whether user on queue
+// removes or adds user to queue
+async function joinOrLeave() {
+
+  // update whether user on queue
   await updateOnQueue();
-  //if user on queue, remove them
-  if(queuePos >= 0)
-  {
+
+  // if user on queue, remove them
+  if( queuePos >= 0 ) {
     removeUser();
-  }
-  //if user not on queue, add them
-  else {
-    await setDoc(doc(db, "queue", auth.currentUser.email),{
+  } else {
+
+    // if user not on queue, add them
+    await setDoc( doc( db, 'queue', auth.currentUser.email ),{
       position: queueLen
-    });
+    } );
     queuePos = queueLen;
     queueLen++;
-    joinedMessage.innerHTML = "You are on the queue!\nYour position: " + queueLen;
-    //changes join queue to leave queue
-    joinedQueue.innerHTML = "Leave Queue";
-    joined.innerHTML = "Leave";
-    console.log("joined queue");
+    joinedMessage.innerHTML = 'You are on the queue!\nYour position: ' + queueLen;
+
+    // changes join queue to leave queue
+    joinedQueue.innerHTML = 'Leave Queue';
+    joined.innerHTML = 'Leave';
+    console.log( 'joined queue' );
   }
-  //closes pop up
-  document.getElementById("queue").style.display='none';
+
+  // closes pop up
+  document.getElementById( 'queue' ).style.display='none';
 }
 
-//updates queue length and checks if user on queue
-async function updateOnQueue()
-{
+// updates queue length and checks if user on queue
+async function updateOnQueue() {
   var onQueue = 0;
   var enabled = false;
-  const queueSnap = await getDocs(collection(db, "queue"));
-  queueSnap.docs.forEach(doc => {
+  const queueSnap = await getDocs( collection( db, 'queue' ) );
+  queueSnap.docs.forEach( doc => {
     enabled = true;
-    if(doc.id === auth.currentUser.email)
-    {
-      console.log("user queued");
+    if( doc.id === auth.currentUser.email ) {
+      console.log( 'user queued' );
       queuePos = onQueue;
     }
     onQueue++;
-    console.log("queueLen++");
-  });
-  if(enabled)
-  {
+    console.log( 'queueLen++' );
+  } );
+  if( enabled ) {
     queueLen = onQueue;
-  }
-  else {
+  } else {
     queueLen = -1;
   }
 }
 
-//updates queue info
-async function updateOnLoad()
-{
-  console.log("updating...");
+// updates queue info
+async function updateOnLoad() {
+  console.log( 'updating...' );
   await updateOccupied();
-  await updateQueueStatus(null);
+  await updateQueueStatus( null );
   await updateOnQueue();
-  if(queuePos >= 0)
-  {
-    console.log("updating button");
-    joinedMessage.innerHTML = "You are on the queue!\nYour position: " + queuePos;
-    joinedQueue.innerHTML = "Leave Queue";
-    joined.innerHTML = "Leave";
+  if( queuePos >= 0 ) {
+    console.log( 'updating button' );
+    joinedMessage.innerHTML = 'You are on the queue!\nYour position: ' + queuePos;
+    joinedQueue.innerHTML = 'Leave Queue';
+    joined.innerHTML = 'Leave';
   }
 }
 
-//updates queue once window loads
-window.addEventListener("load", (event) => {
-  console.log("window.onload");
+// updates queue once window loads
+window.addEventListener( 'load', ( event ) => {
+  console.log( 'window.onload' );
   updateOnLoad();
-});
+} );
 
-//checks whether all rooms are occupied, the last available room is returned, otherwise returns null
-async function updateOccupied()
-{
-  console.log("updating open rooms");
-  var floor1Results = await getDocs(collection(db,"floor1"));
-  var floor3Results = await getDocs(collection(db,"floor3"));
-  var floor4Results = await getDocs(collection(db,"floor4"));
+// checks whether all rooms are occupied, the last available room is returned, otherwise returns null
+async function updateOccupied() {
+  console.log( 'updating open rooms' );
+  var floor1Results = await getDocs( collection( db,'floor1' ) );
+  var floor3Results = await getDocs( collection( db,'floor3' ) );
+  var floor4Results = await getDocs( collection( db,'floor4' ) );
 
   var floor1 = floor1Results.docs;
   var floor3 = floor3Results.docs;
@@ -278,108 +275,97 @@ async function updateOccupied()
 
   var occupied = true;
   var open = null;
-  floor1.forEach((room) => {
-    if(!room.data().occupied && room.data().available)
-    {
+  floor1.forEach( ( room ) => {
+    if( ! room.data().occupied && room.data().available ) {
       occupied = false;
       open = room.id;
     }
-  });
-  floor3.forEach((room) => {
-    if(!room.data().occupied && room.data().available)
-    {
+  } );
+  floor3.forEach( ( room ) => {
+    if( ! room.data().occupied && room.data().available ) {
       occupied = false;
       open = room.id;
     }
-  });
-  floor4.forEach((room) => {
-    if(!room.data().occupied && room.data().available)
-    {
+  } );
+  floor4.forEach( ( room ) => {
+    if( ! room.data().occupied && room.data().available ) {
       occupied = false;
       open = room.id;
     }
-  });
+  } );
 
   allOccupied = occupied;
   return open;
 }
 
-//updates queue status depending on available rooms and number of people on queue
-async function updateQueueStatus(availableRoom)
-{
-  console.log("updating queue status")
-  console.log("queuePos: " + queuePos + "\nallOccupied: " + allOccupied);
-  //if user head of queue and not all rooms occupied, notify user
-  if(queuePos === 0 && !allOccupied)
-  {
-    notifyHead(availableRoom);
+// updates queue status depending on available rooms and number of people on queue
+async function updateQueueStatus( availableRoom ) {
+  console.log( 'updating queue status' );
+  console.log( 'queuePos: ' + queuePos + '\nallOccupied: ' + allOccupied );
+
+  // if user head of queue and not all rooms occupied, notify user
+  if( queuePos === 0 && ! allOccupied ) {
+    notifyHead( availableRoom );
   }
-  //if no users are on the queue and there are free rooms, disable the queue
-  if(queueLen === 0 && !allOccupied)
-  {
+
+  // if no users are on the queue and there are free rooms, disable the queue
+  if( queueLen === 0 && ! allOccupied ) {
     disableQueue();
-  }
-  //if queue not enabled and all rooms are occupied, enable the queue
-  else if(queueLen === -1 && allOccupied)
-  {
+  } else if( queueLen === -1 && allOccupied ) {
+
+    // if queue not enabled and all rooms are occupied, enable the queue
     enableQueue();
   }
 }
 
-//shows the queue button so users may join
-async function enableQueue()
-{
-  console.log("enabling queue");
+// shows the queue button so users may join
+async function enableQueue() {
+  console.log( 'enabling queue' );
   queueLen = 0;
-  joinedQueue.style.display = "inline";
+  joinedQueue.style.display = 'inline';
 }
 
-//hides the queue button and removes any left over users from the queue
-//(there should not be left over users but it prevents possible issues with the queue from arising)
-async function disableQueue()
-{
-  console.log("disabling queue");
-  joinedQueue.style.display = "none";
-  const queueSnap = await getDocs(collection(db, "queue"));
-  queueSnap.docs.forEach((DOC) =>
-  {
-    const docRef = doc(db, "queue", DOC.id);
-    deleteDoc(docRef);
-  });
+// hides the queue button and removes any left over users from the queue
+// (there should not be left over users but it prevents possible issues with the queue from arising)
+async function disableQueue() {
+  console.log( 'disabling queue' );
+  joinedQueue.style.display = 'none';
+  const queueSnap = await getDocs( collection( db, 'queue' ) );
+  queueSnap.docs.forEach( ( DOC ) => {
+    const docRef = doc( db, 'queue', DOC.id );
+    deleteDoc( docRef );
+  } );
   queueLen = -1;
   queuePos = -1;
 }
 
-//notifies head of queue that room is available
-async function notifyHead(availableRoom)
-{
-  console.log("notifying head of open room");
-  window.alert("Room " + availableRoom + " is available for you to occupy");
+// notifies head of queue that room is available
+async function notifyHead( availableRoom ) {
+  console.log( 'notifying head of open room' );
+  window.alert( 'Room ' + availableRoom + ' is available for you to occupy' );
   removeUser();
 }
 
-//removes user from queue and decrements position of users behind them in queue
-async function removeUser()
-{
-  const queueSnap = await getDocs(collection(db, "queue"));
-  queueSnap.docs.forEach(DOC => {
-      //remove user from the queue
-      if(DOC.id === auth.currentUser.email)
-      {
-        const docRef = doc(db, "queue", auth.currentUser.email);
-        deleteDoc(docRef);
+// removes user from queue and decrements position of users behind them in queue
+async function removeUser() {
+  const queueSnap = await getDocs( collection( db, 'queue' ) );
+  queueSnap.docs.forEach( DOC => {
+
+      // remove user from the queue
+      if( DOC.id === auth.currentUser.email ) {
+        const docRef = doc( db, 'queue', auth.currentUser.email );
+        deleteDoc( docRef );
         queueLen--;
-        joinedMessage.innerHTML = "Would you like to join the queue?";
-        joinedQueue.innerHTML = "Join Queue";
-        joined.innerHTML = "Yes";
-        console.log("removed from queue");
-      }
-      //decrement queue positions after removed user
-      else if(DOC.data().position > queuePos)
-      {
+        joinedMessage.innerHTML = 'Would you like to join the queue?';
+        joinedQueue.innerHTML = 'Join Queue';
+        joined.innerHTML = 'Yes';
+        console.log( 'removed from queue' );
+      } else if( DOC.data().position > queuePos ) {
+
+        // decrement queue positions after removed user
         var currentPosition = DOC.data().position;
-        setDoc(DOC, {position : currentPosition--});
+        setDoc( DOC, {position : currentPosition--} );
       }
-    });
+    } );
     queuePos = -1;
 }
