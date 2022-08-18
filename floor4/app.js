@@ -4,34 +4,34 @@ import { collection, doc, setDoc, getDocs, getDoc, onSnapshot, getFirestore,  Qu
 // import { } from 'firebase/<service>';
 
 class Room {
-  contructor(_db, _ID, _floor){
+  contructor( _db, _ID, _floor ){
     this.ID = _ID;
     this.floor = _floor;
-    this.DB = _db
+    this.DB = _db;
     this.data = null;
-    const check = onSnapshot(doc(_db, _floor, _ID), (doc) => {this.data = doc.data(); reload();});
+    const check = onSnapshot( doc( _db, _floor, _ID ), ( doc ) => {this.data = doc.data(); reload();} );
     //console.log(this.data);
   }
 
   printToConsole(){
-    console.log(this.data);
+    console.log( this.data );
   }
 
   async update(){
-    var temp = await getDoc(doc(this.DB, this.floor, this.ID));
+    var temp = await getDoc( doc( this.DB, this.floor, this.ID ));
     this.data = temp.data();
     //console.log(this.data);
   }
 
   async occupy(){
-    if (this.data["occupied"] == false){
-      this.data["time"]["seconds"] = Math.round(Date.now() / 1000);
-      this.data["time"]["nanoseconds"] = Date.now() % 1000;
-      this.data["occupied"] = true;
-      this.data["user"] = sessionStorage.getItem("email");
-      await setDoc(doc(this.DB, this.floor, this.ID), this.data); 
-      setUserRoom(this.ID);
-      sessionStorage.setItem("myRoom", this.ID);
+    if ( this.data[ "occupied" ] == false ){
+      this.data[ "time" ][ "seconds" ] = Math.round( Date.now() / 1000 );
+      this.data[ "time" ][ "nanoseconds" ] = Date.now() % 1000;
+      this.data[ "occupied" ] = true;
+      this.data[ "user" ] = sessionStorage.getItem( "email" );
+      await setDoc( doc( this.DB, this.floor, this.ID ), this.data ); 
+      setUserRoom( this.ID );
+      sessionStorage.setItem( "myRoom", this.ID );
     }
   }
 
@@ -81,20 +81,6 @@ var floor1 = [], floor2 = [], floor3 = [], floor4 = [];
 const unsub = onSnapshot(doc(db, "cities", "SF"), (doc) => {
     console.log("Current data: ", doc.data());
 });
-
-// await setDoc(doc(db, "cities", "LA"), {
-//   name: "Los Angeles",
-//   state: "CA",
-//   country: "USA"
-// });
-
-// Get a list of cities from your database
-async function getCities(db) {
-  const citiesCol = collection(db, 'cities');
-  const citySnapshot = await getDocs(citiesCol);
-  const cityList = citySnapshot.docs.map(doc => doc.data());
-  return cityList;
-}
 
 //create a list of room objects
 async function getFloor(db, floor) {
@@ -233,16 +219,16 @@ function drawSelectedRoom(){
   ctx.beginPath();
   ctx.lineWidth = "3";
   ctx.strokeStyle = "rgba(0,0,255,1)";
-  ctx.arc((selectedRoom.data.topLeft[0] + selectedRoom.data.bottomRight[0]) / 2, (selectedRoom.data.topLeft[1] + selectedRoom.data.bottomRight[1]) / 2, 26, 0, 2 * Math.PI);
+  ctx.arc( ( selectedRoom.data.topLeft[0] + selectedRoom.data.bottomRight[0]) / 2, (selectedRoom.data.topLeft[1] + selectedRoom.data.bottomRight[1]) / 2, 26, 0, 2 * Math.PI);
   ctx.stroke();
 
   var status = "Occupied";
-  if (!selectedRoom.data.occupied){
+  if ( !selectedRoom.data.occupied ){
     status = "Unoccupied";
   }
 
   var canUse = " ";
-  if (!selectedRoom.data.available){
+  if ( !selectedRoom.data.available ) {
     canUse = "Room is closed";
   } 
 
